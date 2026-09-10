@@ -32,13 +32,8 @@ export const hero = {
 } as const;
 
 export const credibility = {
-  title: "Ce que je gère en ce moment",
-  client: {
-    name: "Ayram Barry Avocat",
-    detail: "Cabinet montréalais — droit de l'immigration et droit des affaires",
-    role: "Instagram et TikTok, de la ligne éditoriale au tournage",
-  },
-  sectorsLabel: "Secteurs pour lesquels je travaille",
+  sectorsLabel: "Je travaille avec",
+  note: "PME du Grand Montréal, de Laval à la Rive-Nord.",
   sectors: [
     "Cabinets d'avocats",
     "Cliniques et santé",
