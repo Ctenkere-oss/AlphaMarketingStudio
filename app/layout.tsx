@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   // Pas de `template` : chaque page écrit son titre en entier, calibré
   // entre 50 et 60 caractères. Un gabarit qui ajoute la marque produit
   // des titres tronqués par Google dès que la page en contient déjà une.
-  title: "Alpha Marketing Studio | Marketing numérique à Montréal",
+  title: "Publicités Meta pour PME à Montréal | Alpha Marketing",
   description:
-    "Studio d'acquisition numérique à Montréal : publicités Meta, contenu Instagram et TikTok, sites web pour PME à 500 $ et SEO local. Un seul interlocuteur.",
+    "Studio d'acquisition numérique à Montréal, spécialisé en publicités Meta pour PME. Sites web, réseaux sociaux et SEO local en appui. Un seul interlocuteur.",
   applicationName: site.name,
   authors: [{ name: site.founder.name }],
   creator: site.founder.name,

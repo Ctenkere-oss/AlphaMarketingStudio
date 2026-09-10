@@ -16,9 +16,9 @@ import { GuideSection } from "@/components/sections/GuideSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Alpha Marketing Studio | Marketing numérique à Montréal",
+  title: "Publicités Meta pour PME à Montréal | Alpha Marketing",
   description:
-    "Publicités Meta, contenu Instagram et TikTok, sites web pour PME à 500 $ et SEO local à Montréal. Un seul interlocuteur, et c'est celui qui exécute.",
+    "Gestion de campagnes Facebook et Instagram pour les PME du Grand Montréal. Sites web à 500 $ et réseaux sociaux en appui. Un seul interlocuteur : celui qui exécute.",
   path: "/",
 });
 
@@ -37,9 +37,12 @@ export default function HomePage() {
       <CredibilityBand />
       <ProblemSection />
       <ServicesSection />
-      <WebOffer />
       <MethodSection />
       <CaseStudySection />
+      {/* L'offre de site web reste un aimant à conversion, mais elle
+          passe après la méthode et l'étude de cas : c'est un service
+          en appui, pas le produit vendu. */}
+      <WebOffer />
       <AboutShort />
       <FaqSection />
       <GuideSection />

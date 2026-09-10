@@ -17,7 +17,7 @@ export function organizationSchema() {
     email: site.email,
     ...(site.phone ? { telephone: site.phone } : {}),
     description:
-      "Studio d'acquisition numérique à Montréal : publicités Meta, gestion de contenu social, création de sites web pour PME et SEO local.",
+      "Studio d'acquisition numérique à Montréal spécialisé en publicités Meta pour PME. Gestion de contenu social, création de sites web et SEO local en appui.",
     founder: { "@id": PERSON_ID },
     knowsLanguage: site.languages,
     priceRange: "$$",
@@ -48,7 +48,6 @@ export function personSchema() {
     jobTitle: site.founder.title,
     worksFor: { "@id": ORG_ID },
     url: absoluteUrl("/a-propos"),
-    image: absoluteUrl(site.founder.photo),
     ...(socialLinks.length ? { sameAs: socialLinks.map((s) => s.url) } : {}),
   };
 }

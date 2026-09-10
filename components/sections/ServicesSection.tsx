@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { services } from "@/content/services";
+import { mainService, servicesPage, supportServices } from "@/content/services";
 import { site } from "@/content/site";
 
 /**
@@ -11,8 +11,6 @@ import { site } from "@/content/site";
  * séparées par un filet. Quatre cartes identiques auraient dit au
  * visiteur que les quatre services se valent — ce qui est faux.
  */
-
-const [meta, ...others] = services;
 
 const accountStructure = [
   { level: 0, label: "Campagne", detail: "un objectif d'affaires, budget géré ici" },
@@ -31,14 +29,19 @@ export function ServicesSection() {
   return (
     <Section id="services" tone="sunken">
       <SectionHeading
-        title="Quatre leviers, un seul opérateur"
-        intro="Ils ne se valent pas et ils ne devraient pas être présentés comme s'ils se valaient. Voici celui qui produit le plus vite, puis les trois qui le rendent moins cher."
+        title={servicesPage.h1}
+        intro="Un seul de ces services est ce que je vends. Les trois autres existent parce qu'ils le rendent moins cher — et ils sont présentés comme tels."
       />
+
+      <p className="mt-12 flex items-center gap-3 text-small text-mute">
+        <span aria-hidden="true" className="h-px w-8 bg-accent" />
+        {servicesPage.mainLabel}
+      </p>
 
       {/* ---- Service phare ---- */}
       <article
         data-reveal
-        className="surface relative mt-14 overflow-hidden rounded-frame p-6 sm:p-9 lg:p-11"
+        className="surface relative mt-4 overflow-hidden rounded-frame p-6 sm:p-9 lg:p-11"
       >
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-accent" />
 
@@ -46,18 +49,18 @@ export function ServicesSection() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h3 className="font-display text-[clamp(1.6rem,1.25rem+1.4vw,2.2rem)] leading-tight font-bold tracking-tight text-bone">
-                {meta.nav}
+                {mainService.nav}
               </h3>
               <span className="rounded-full border border-indigo/45 bg-indigo/12 px-2.5 py-1 text-micro font-semibold text-link">
-                Service principal
+                Produit principal
               </span>
             </div>
 
-            <p className="mt-4 max-w-lg text-lead text-mist">{meta.promise}</p>
+            <p className="mt-4 max-w-lg text-lead text-mist">{mainService.promise}</p>
 
             <h4 className="mt-9 text-small font-semibold text-bone">Ce que je livre</h4>
             <ul className="mt-3 space-y-2.5">
-              {meta.deliverables.map((item) => (
+              {mainService.deliverables.map((item) => (
                 <li key={item} className="relative pl-5 text-small text-mist">
                   <span
                     aria-hidden="true"
@@ -69,7 +72,7 @@ export function ServicesSection() {
             </ul>
 
             <Link
-              href={`/services/${meta.slug}`}
+              href={`/services/${mainService.slug}`}
               className="mt-6 inline-flex min-h-11 items-center text-small font-semibold text-link
                          underline decoration-link/40 underline-offset-4 transition-colors
                          hover:decoration-link"
@@ -106,13 +109,19 @@ export function ServicesSection() {
         </div>
       </article>
 
+      <p className="mt-16 flex items-center gap-3 text-small text-mute">
+        <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
+        {servicesPage.supportLabel}
+      </p>
+      <p className="mt-3 max-w-2xl text-small text-mist">{servicesPage.supportIntro}</p>
+
       {/* ---- Les trois autres : des rangées, pas des cartes ----
            Seul le titre est un lien ; son pseudo-élément couvre la
            rangée entière. La zone cliquable reste grande, mais le nom
            accessible du lien est « Gestion des réseaux sociaux » et non
            le titre suivi de la promesse et du prix collés ensemble. */}
-      <ul className="mt-4 border-t border-line">
-        {others.map((service, i) => (
+      <ul className="mt-7 border-t border-line">
+        {supportServices.map((service, i) => (
           <li
             key={service.slug}
             data-reveal

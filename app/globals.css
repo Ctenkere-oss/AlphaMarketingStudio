@@ -163,8 +163,16 @@
   to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 
-@keyframes crea-fade-out {
-  to { opacity: 0.28; filter: grayscale(1) contrast(0.85); }
+/* Les créas écartées s'éteignent par leur SURFACE — bordure, fond,
+   échelle — et non par l'opacité du texte. Un `opacity: 0.28` sur une
+   carte typographique ferait tomber le libellé sous le seuil de
+   contraste AA, alors que ce libellé porte du sens. */
+@keyframes crea-settle {
+  to {
+    border-color: var(--color-line-faint);
+    background-color: color-mix(in oklab, var(--color-ink-raised) 45%, var(--color-ink));
+    transform: scale(0.985);
+  }
 }
 
 @keyframes crea-win {

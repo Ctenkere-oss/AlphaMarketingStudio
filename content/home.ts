@@ -3,7 +3,7 @@ import { site } from "./site";
 export const hero = {
   h1: "Des clients qui vous trouvent avant de trouver votre concurrent.",
   lead:
-    "Publicités Meta, contenu Instagram et TikTok, sites web et SEO local pour les PME du Grand Montréal. Un seul interlocuteur, et c'est celui qui exécute.",
+    "Je gère des campagnes de publicité Meta pour les PME du Grand Montréal — c'est le cœur du métier. Sites web et réseaux sociaux viennent en appui, quand ils rendent la publicité moins chère.",
   ctaPrimary: { href: "/contact", label: "Obtenir mon audit gratuit" },
   ctaSecondary: { href: "/services", label: "Voir les services" },
   guideLink: { href: "#guide", label: "Ou commencez par le guide gratuit" },
@@ -12,10 +12,23 @@ export const hero = {
     "Sans engagement",
     "Rapport mensuel transparent",
   ],
-  /** Légende de la grille de créas. Aucun chiffre : rien n'est inventé. */
+  /**
+   * Tableau de test de créas — remplace la grille d'images.
+   * Ce sont des TYPES D'ANGLE, pas des publicités inventées : le bloc
+   * décrit une méthode de travail, il n'affirme rien sur des résultats.
+   */
+  creas: [
+    { angle: "Le prix affiché", format: "Vidéo 15 s", state: "Retirée" },
+    { angle: "Le problème d'abord", format: "Vidéo 30 s", state: "Retirée" },
+    { angle: "Arrêter de booster", format: "Vidéo 20 s", state: "Active" },
+    { angle: "La démonstration", format: "Carrousel", state: "Retirée" },
+    { angle: "La question à l'écran", format: "Vidéo 15 s", state: "Retirée" },
+    { angle: "L'offre datée", format: "Image fixe", state: "Retirée" },
+  ],
+  creasTitle: "Test de créas en cours",
   creasCaption:
-    "Des créas réelles, publiées pour de vrais clients. La plupart sont retirées en moins d'une semaine. Celles qui restent paient tout le reste.",
-  winnerLabel: "Celle qui reste",
+    "Huit à douze créas par mois, chacune testant un angle différent. Celles qui ne trouvent pas leur public sont retirées en quelques jours, et leur budget va à celle qui reste.",
+  winnerNote: "reçoit le budget des autres",
 } as const;
 
 export const credibility = {
@@ -104,6 +117,8 @@ export const caseStudy = {
     "Format signature reconnaissable — décor, habillage graphique et typographie constants d'une vidéo à l'autre.",
     "Reprise des meilleures publications organiques en publicités, plutôt que de produire des créas à part.",
   ],
+  adsLink:
+    "Ce mandat est un mandat de contenu, pas de publicité. Il est ici parce qu'il montre d'où viennent les créas : les publications qui fonctionnent en organique deviennent les publicités qui coûtent le moins cher.",
   outcomeIntro:
     "Les résultats chiffrés de ce mandat appartiennent au client. Ils seront affichés ici une fois qu'il aura donné son accord et que j'aurai extrait les données exactes des comptes.",
   results: [
@@ -120,9 +135,11 @@ export const caseStudy = {
       note: "[[CHIFFRE À CONFIRMER : demandes attribuées aux réseaux sociaux]]",
     },
   ],
-  images: [
-    { src: "/images/creas/crea-4.webp", alt: "Vidéo courte produite pour Ayram Barry Avocat, habillage de marque du cabinet" },
-    { src: "/images/creas/crea-7.webp", alt: "Publication soulignant un an de collaboration avec Ayram Barry Avocat" },
+  formats: [
+    "Vidéo verticale de 15 à 30 secondes, sous-titrée",
+    "Habillage graphique constant d'une publication à l'autre",
+    "Publication simultanée sur Instagram et TikTok",
+    "Reprise des meilleures publications en publicités",
   ],
 } as const;
 

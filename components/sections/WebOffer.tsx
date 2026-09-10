@@ -25,7 +25,12 @@ export function WebOffer() {
         <div className="relative p-6 sm:p-10 lg:p-14">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
             <div data-reveal>
+              <p className="mb-4 text-small text-mute">Service en appui</p>
               <h2 className="text-title text-bone">Un site en ligne la semaine prochaine</h2>
+              <p className="mt-4 max-w-md text-small text-mist">
+                Une publicité qui envoie vers une page d&apos;arrivée molle coûte plus cher, quel
+                que soit le ciblage. C&apos;est la raison d&apos;être de cette offre.
+              </p>
 
               <div className="mt-8 flex flex-wrap items-end gap-x-5 gap-y-2">
                 <p className="text-gradient font-display text-[clamp(3.5rem,2.2rem+5.6vw,6rem)] leading-[0.92] font-bold tracking-[-0.04em]">

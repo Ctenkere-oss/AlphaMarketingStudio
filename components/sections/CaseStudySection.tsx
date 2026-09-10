@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Marked } from "@/components/ui/Marked";
 import { ButtonLink } from "@/components/ui/Button";
@@ -24,20 +23,17 @@ export function CaseStudySection() {
           <h2 className="text-title text-bone">{caseStudy.title}</h2>
           <p className="mt-3 font-display text-subtitle text-link">{caseStudy.client}</p>
           <p className="mt-5 max-w-md text-mist">{caseStudy.context}</p>
+          <p className="mt-4 max-w-md border-l-2 border-line-strong pl-4 text-small text-mute">
+            {caseStudy.adsLink}
+          </p>
 
-          <div className="mt-8 grid max-w-sm grid-cols-2 gap-3">
-            {caseStudy.images.map((image) => (
-              <Image
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                width={462}
-                height={616}
-                sizes="(min-width: 1024px) 190px, 42vw"
-                className="aspect-3/4 w-full rounded-card border border-line object-cover"
-              />
+          <ul className="mt-8 max-w-sm divide-y divide-line border-y border-line">
+            {caseStudy.formats.map((format) => (
+              <li key={format} className="py-3 text-small text-mist">
+                {format}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div data-reveal data-reveal-delay="90">

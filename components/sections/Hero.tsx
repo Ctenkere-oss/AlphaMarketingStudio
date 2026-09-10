@@ -1,112 +1,106 @@
-import Image from "next/image";
 import { ButtonLink, TextLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { hero } from "@/content/home";
 
 /**
- * Grille de test de créas.
+ * Tableau de test de créas.
  *
- * L'ouverture ne raconte pas ce que fait le studio, elle le montre :
- * des créas réelles se posent, la plupart s'éteignent, une seule reste.
- * C'est le métier en une image, et c'est le SEUL moment animé du site.
+ * L'ouverture ne décrit pas le métier, elle le montre : six angles en
+ * test, cinq retirés, un seul qui reste et récupère le budget des
+ * autres. C'est le fonctionnement réel d'un compte publicitaire, et
+ * c'est la SEULE séquence animée du site.
  *
- * Les six images viennent du compte Instagram du studio. La séquence est
- * en CSS pur, sans JavaScript : elle démarre avec la page, pas après
- * l'hydratation, et coûte zéro octet de bibliothèque.
+ * Entièrement typographique — aucune image, donc aucune requête et
+ * aucun décalage de mise en page. Les cartes nomment des TYPES D'ANGLE,
+ * pas des publicités inventées : le bloc décrit une méthode, il
+ * n'affirme rien sur des résultats.
  *
- * Le texte du héros, lui, ne s'anime pas. Une accroche qui apparaît en
- * fondu fait attendre le lecteur pour rien, et retarde le plus grand
- * élément affiché (LCP) d'autant. Le mouvement est réservé à la grille,
- * qui est le propos.
+ * La séquence est en CSS pur : elle démarre avec la page plutôt qu'après
+ * l'hydratation, et coûte zéro octet de bibliothèque. Le texte du héros,
+ * lui, ne s'anime pas — une accroche en fondu fait attendre le lecteur
+ * pour rien et retarde le plus grand élément affiché.
  */
-
-type Tile = { src: string; alt: string; winner?: boolean };
-
-const tiles: Tile[] = [
-  {
-    src: "/images/creas/crea-3.webp",
-    alt: "Créa vidéo : présentation face caméra, chemise violette",
-  },
-  {
-    src: "/images/creas/crea-4.webp",
-    alt: "Créa vidéo produite pour un cabinet d'avocats montréalais, habillage de marque du client",
-    winner: true,
-  },
-  {
-    src: "/images/creas/crea-5.webp",
-    alt: "Créa vidéo : format questions-réponses en intérieur",
-  },
-  {
-    src: "/images/creas/crea-8.webp",
-    alt: "Créa vidéo : présentation face caméra en veston",
-  },
-  {
-    src: "/images/creas/crea-1.webp",
-    alt: "Coulisses d'un tournage vertical avec anneau lumineux",
-  },
-  {
-    src: "/images/creas/crea-2.webp",
-    alt: "Créa vidéo tournée dans un logement en location courte durée",
-  },
-];
 
 const DEAL_STEP = 95;
 const FADE_AT = 1450;
 const WIN_AT = 1550;
 
-function CreaGrid() {
+function TestBoard() {
   return (
     <figure className="relative">
-      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
-        {tiles.map((tile, i) => {
+      <figcaption className="mb-4 flex items-center gap-3 text-micro text-mute">
+        <span aria-hidden="true" className="h-px w-6 bg-accent" />
+        {hero.creasTitle}
+      </figcaption>
+
+      <ul className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3">
+        {hero.creas.map((crea, i) => {
+          const winner = crea.state === "Active";
           const dealDelay = i * DEAL_STEP;
-          const animation = tile.winner
+          const animation = winner
             ? `crea-deal 720ms var(--ease-out-soft) ${dealDelay}ms both,` +
               ` crea-win 700ms var(--ease-out-soft) ${WIN_AT}ms forwards`
             : `crea-deal 720ms var(--ease-out-soft) ${dealDelay}ms both,` +
-              ` crea-fade-out 800ms ease-out ${FADE_AT}ms forwards`;
+              ` crea-settle 800ms ease-out ${FADE_AT}ms forwards`;
 
           return (
-            <div
-              key={tile.src}
+            <li
+              key={crea.angle}
               style={{ animation }}
               className={[
-                "relative overflow-hidden rounded-[11px] border",
+                "flex aspect-4/5 flex-col justify-between rounded-[11px] border p-3.5",
                 // La colonne du milieu remonte : la grille cesse d'être un tableau.
                 i % 3 === 1 ? "lg:-translate-y-7" : "",
-                tile.winner
-                  ? "border-indigo/70 ring-1 ring-indigo/35 shadow-[0_16px_40px_-16px] shadow-violet/50"
-                  : "border-line",
+                winner
+                  ? "border-indigo/70 bg-ink-panel ring-1 ring-indigo/35 shadow-[0_16px_40px_-16px] shadow-violet/50"
+                  : "border-line bg-ink-raised",
               ].join(" ")}
             >
-              <Image
-                src={tile.src}
-                alt={tile.alt}
-                width={462}
-                height={616}
-                priority={tile.winner}
-                sizes="(min-width: 1024px) 165px, 30vw"
-                className="h-full w-full object-cover"
-              />
-              {tile.winner ? (
+              <span className="text-micro text-mute">{crea.format}</span>
+
+              <span
+                className={[
+                  "font-display text-[0.95rem] leading-[1.2] font-bold tracking-tight",
+                  // `mute` tient 5,9:1 sur le fond : les angles écartés
+                  // restent lisibles, ils ne sont pas décoratifs.
+                  winner ? "text-bone" : "text-mute",
+                ].join(" ")}
+              >
+                {crea.angle}
+              </span>
+
+              <span className="flex items-center gap-2">
                 <span
-                  style={{
-                    animation: `badge-in 500ms var(--ease-out-soft) ${WIN_AT + 200}ms both`,
-                  }}
-                  className="absolute inset-x-1.5 bottom-1.5 rounded-md bg-ink/85 px-2 py-1
-                             text-center text-[0.68rem] leading-tight font-semibold text-bone
-                             supports-[backdrop-filter]:backdrop-blur-sm"
+                  aria-hidden="true"
+                  className={[
+                    "size-1.5 rounded-full",
+                    winner ? "bg-accent" : "bg-line-strong",
+                  ].join(" ")}
+                />
+                <span
+                  className={[
+                    "text-micro",
+                    winner ? "font-semibold text-link" : "text-mute",
+                  ].join(" ")}
                 >
-                  {hero.winnerLabel}
+                  {crea.state}
+                </span>
+              </span>
+
+              {winner ? (
+                <span
+                  style={{ animation: `badge-in 500ms var(--ease-out-soft) ${WIN_AT + 200}ms both` }}
+                  className="text-micro leading-tight text-mute"
+                >
+                  {hero.winnerNote}
                 </span>
               ) : null}
-            </div>
+            </li>
           );
         })}
-      </div>
-      <figcaption className="mt-5 max-w-sm text-small text-mute">
-        {hero.creasCaption}
-      </figcaption>
+      </ul>
+
+      <p className="mt-5 max-w-md text-small text-mute">{hero.creasCaption}</p>
     </figure>
   );
 }
@@ -127,11 +121,7 @@ export function Hero() {
             <ButtonLink href={hero.ctaPrimary.href} size="lg">
               {hero.ctaPrimary.label}
             </ButtonLink>
-            <ButtonLink
-              href={hero.ctaSecondary.href}
-              size="lg"
-              variant="secondary"
-            >
+            <ButtonLink href={hero.ctaSecondary.href} size="lg" variant="secondary">
               {hero.ctaSecondary.label}
             </ButtonLink>
           </div>
@@ -148,20 +138,17 @@ export function Hero() {
 
           <ul
             className="mt-10 grid max-w-lg grid-cols-1 divide-y divide-line border-y border-line
-                         sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+                       sm:grid-cols-3 sm:divide-x sm:divide-y-0"
           >
             {hero.assurances.map((item) => (
-              <li
-                key={item}
-                className="px-0 py-3 text-small text-mist sm:px-4 sm:first:pl-0"
-              >
+              <li key={item} className="px-0 py-3 text-small text-mist sm:px-4 sm:first:pl-0">
                 {item}
               </li>
             ))}
           </ul>
         </div>
 
-        <CreaGrid />
+        <TestBoard />
       </Container>
     </section>
   );

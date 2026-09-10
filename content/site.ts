@@ -13,9 +13,6 @@ export const site = {
     name: "Ibrahima Sory Barry",
     firstName: "Ibrahima",
     title: "Fondateur et stratège en acquisition payante",
-    photo: "/images/fondateur.webp",
-    photoAlt:
-      "Ibrahima Sory Barry, fondateur d'Alpha Marketing Studio, dans son espace de travail à Montréal",
   },
 
   email: "alphamarketingstudio@outlook.com",

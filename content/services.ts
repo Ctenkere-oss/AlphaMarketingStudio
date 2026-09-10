@@ -8,6 +8,13 @@ export type ServiceSection = {
 
 export type Service = {
   slug: string;
+  /**
+   * `principal` : le produit vendu, celui qui structure l'offre.
+   * `appui` : un service qui existe parce qu'il rend le produit
+   * principal moins cher ou plus efficace. La hiérarchie visuelle du
+   * site découle directement de ce champ.
+   */
+  tier: "principal" | "appui";
   /** Nom court pour la navigation. */
   nav: string;
   /** Titre complet, utilisé en h1 sur la page enfant. */
@@ -32,6 +39,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "publicite-meta",
+    tier: "principal",
     nav: "Publicités Meta",
     h1: "Gestion de publicités Meta pour les PME de Montréal",
     metaTitle: "Publicité Facebook et Instagram à Montréal pour PME",
@@ -105,6 +113,7 @@ export const services: Service[] = [
   },
   {
     slug: "creation-site-web",
+    tier: "appui",
     nav: "Création de site web",
     h1: `Création de site web pour PME à ${site.pricing.website.label}`,
     metaTitle: "Site web pour PME à Montréal : 500 $, livré en 5 jours",
@@ -184,6 +193,7 @@ export const services: Service[] = [
   },
   {
     slug: "gestion-reseaux-sociaux",
+    tier: "appui",
     nav: "Gestion des réseaux sociaux",
     h1: "Gestion de contenu Instagram et TikTok à Montréal",
     metaTitle: "Gestion de réseaux sociaux à Montréal : Instagram, TikTok",
@@ -250,6 +260,7 @@ export const services: Service[] = [
   },
   {
     slug: "seo-local",
+    tier: "appui",
     nav: "SEO local",
     h1: "SEO local à Montréal pour PME et professionnels",
     metaTitle: "SEO local à Montréal et Laval pour PME et professionnels",
@@ -318,13 +329,20 @@ export const services: Service[] = [
 
 export const servicesBySlug = Object.fromEntries(services.map((s) => [s.slug, s]));
 
+export const mainService = services.find((s) => s.tier === "principal")!;
+export const supportServices = services.filter((s) => s.tier === "appui");
+
 export const servicesPage = {
-  h1: "Quatre leviers, un seul opérateur",
-  metaTitle: "Services — publicités Meta, sites web et SEO à Montréal",
+  h1: "Un produit principal, trois services en appui",
+  metaTitle: "Publicité Meta à Montréal — services d'Alpha Marketing",
   metaDescription:
-    "Publicités Meta, gestion Instagram et TikTok, création de site web à 500 $ et SEO local pour les PME du Grand Montréal. Livrables, mesures et prix affichés.",
+    "La gestion de publicités Meta pour PME du Grand Montréal, et les trois services qui la rendent moins chère : site web à 500 $, réseaux sociaux, SEO local.",
   intro:
-    "Quatre services, classés par ce qu'ils rapportent le plus vite. La publicité Meta est celle où je passe le plus de temps, et celle qui produit des résultats en semaines plutôt qu'en mois. Les trois autres existent parce qu'ils la rendent moins chère.",
+    "Je vends une chose : la gestion de campagnes de publicité Meta. C'est là que je passe mes journées et c'est ce qui produit des résultats en semaines plutôt qu'en mois. Les trois autres services existent parce qu'ils rendent cette publicité moins chère — pas parce qu'il fallait remplir un catalogue.",
+  mainLabel: "Le produit",
+  supportLabel: "Les services en appui",
+  supportIntro:
+    "Chacun règle un problème qui fait monter votre coût par client : une page d'arrivée qui ne convertit pas, un profil social endormi que le prospect consulte avant d'appeler, une absence en recherche locale qui vous rend dépendant du budget média.",
   pricingNote:
     "L'offre de site web est affichée en clair parce qu'elle est standardisée. Les mandats de publicité et de contenu ne le sont pas : le budget média, le nombre de tournages et le secteur changent tout. Vous recevez une soumission écrite avant de vous engager à quoi que ce soit.",
 } as const;

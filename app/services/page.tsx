@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/Section";
 import { ServiceBlock } from "@/components/sections/ServiceBlock";
 import { WebOffer } from "@/components/sections/WebOffer";
 import { FinalCta } from "@/components/sections/FinalCta";
-import { services, servicesPage } from "@/content/services";
+import { mainService, services, servicesPage, supportServices } from "@/content/services";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -18,8 +18,6 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ServicesPage() {
-  const [featured, ...others] = services;
-
   return (
     <>
       <JsonLd
@@ -62,9 +60,22 @@ export default function ServicesPage() {
       </div>
 
       <Section className="pt-10">
-        <div className="space-y-16 lg:space-y-20">
-          <ServiceBlock service={featured} featured />
-          {others.map((service) => (
+        <h2 className="flex items-center gap-3 text-small text-mute">
+          <span aria-hidden="true" className="h-px w-8 bg-accent" />
+          {servicesPage.mainLabel}
+        </h2>
+        <div className="mt-4">
+          <ServiceBlock service={mainService} featured />
+        </div>
+
+        <h2 className="mt-20 flex items-center gap-3 text-small text-mute">
+          <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
+          {servicesPage.supportLabel}
+        </h2>
+        <p className="mt-3 max-w-2xl text-mist">{servicesPage.supportIntro}</p>
+
+        <div className="mt-10 space-y-16 lg:space-y-20">
+          {supportServices.map((service) => (
             <ServiceBlock key={service.slug} service={service} />
           ))}
         </div>

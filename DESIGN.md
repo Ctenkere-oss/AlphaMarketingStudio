@@ -15,10 +15,10 @@ Ce site est la vitrine d'une agence de marketing numérique. Un prospect qui le 
 ## 2. Trois principes
 
 ### La preuve avant la promesse
-Chaque affirmation est adossée à quelque chose de vérifiable : des créas réelles publiées pour des clients réels, un prix affiché en clair, une liste de livrables, une liste de ce qui **n'est pas** inclus. Aucun adjectif sans objet. C'est aussi pourquoi aucun chiffre de résultat n'est inventé : les emplacements sont réservés et marqués en jaune tant que le client n'a pas validé ses données.
+Chaque affirmation est adossée à quelque chose de vérifiable : un prix affiché en clair, une liste de livrables, une liste de ce qui **n'est pas** inclus, une méthode décrite étape par étape. Aucun adjectif sans objet. C'est aussi pourquoi aucun chiffre de résultat n'est inventé : les emplacements sont réservés et marqués en jaune tant que le client n'a pas validé ses données.
 
 ### Une seule hardiesse
-La grille de test de créas du héros est le seul moment animé du site. Après elle, tout est calme : surfaces plates, filets d'un pixel, beaucoup de blanc, aucune chorégraphie au survol. Un site qui bouge partout ne met rien en valeur.
+Le tableau de test de créas du héros est le seul moment animé du site. Après lui, tout est calme : surfaces plates, filets d'un pixel, beaucoup de blanc, aucune chorégraphie au survol. Un site qui bouge partout ne met rien en valeur.
 
 ### Le prix est du design
 `500 $`, `75 $`, `5 jours`, `48 h`. Ces nombres reçoivent un traitement typographique normalement réservé à un titre, parce que l'affichage du prix est le vrai différenciateur face aux agences montréalaises qui le cachent. Un argument commercial mérite un rang typographique.
@@ -29,7 +29,9 @@ La grille de test de créas du héros est le seul moment animé du site. Après 
 
 **A — Le tableau de bord vivant.** Une console montrant une courbe de coût par acquisition qui descend. *Écarté :* impose des chiffres, et le seul moyen honnête aurait été d'inventer des données.
 
-**B — La grille de test de créas.** Des créas réelles se posent, la plupart s'éteignent en gris, une seule reste allumée. *Retenu.* C'est le métier en une image — on teste beaucoup, on tue vite, ce qui survit paie le reste — et le matériau est authentique : les vignettes viennent du compte Instagram du studio. Impossible à confondre avec un gabarit, parce qu'aucun gabarit ne contient vos créas.
+**B — Le tableau de test de créas.** Six angles en test se posent, cinq s'éteignent, un seul reste et récupère le budget des autres. *Retenu.* C'est le métier en une image : on teste beaucoup, on coupe vite, ce qui survit paie le reste.
+
+Première version : des vignettes tirées du compte Instagram du studio. Le client a demandé de retirer toutes les images, le bloc est donc devenu **entièrement typographique** — et il y a gagné. Les cartes nomment des *types d'angle*, pas des publicités reconstituées : le bloc décrit une méthode, il n'affirme rien sur des résultats. Zéro requête image, zéro décalage de mise en page, et l'idée passe plus vite parce qu'on lit « Retirée » et « Active » au lieu de deviner un traitement visuel.
 
 **C — Le brief qui devient campagne.** Une séquence typographique transformant la phrase d'un propriétaire en structure de campagne. *Écarté :* trop conceptuel, ne montre aucun travail réel.
 
@@ -90,7 +92,9 @@ Deux familles, auto-hébergées en `woff2` variable via `next/font/local` — au
 
 Largeur maximale `76rem` (`--container-shell`). Colonne de lecture `42rem` (`--container-read`) : au-delà de 75 caractères par ligne, l'œil perd le début de la ligne suivante.
 
-**Aucune grille de quatre cartes identiques.** La hiérarchie visuelle suit la hiérarchie commerciale :
+**Aucune grille de quatre cartes identiques.** La hiérarchie visuelle suit la hiérarchie commerciale, qui compte deux paliers : un produit vendu, et trois services qui existent pour le rendre moins cher.
+
+Le champ `tier` de `content/services.ts` (`principal` ou `appui`) est la source de cette hiérarchie. Changer un service de palier déplace son traitement visuel sur l'accueil comme sur la page Services.
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -119,9 +123,11 @@ Une seule séquence orchestrée, au chargement du héros, en CSS pur :
 
 ```
 0 ms ─────────── 1,2 s ──────── 1,45 s ─── 1,55 s ── 1,75 s
-   les créas se posent   │   les perdantes  │  la gagnante  │  son
-   (décalage de 95 ms)   │   s'éteignent    │  remonte      │  étiquette
+   les cartes se posent  │  les écartées  │  la gagnante  │  sa
+   (décalage de 95 ms)   │  s'éteignent   │  remonte      │  mention
 ```
+
+Les cartes écartées s'éteignent par leur **surface** — bordure, fond, échelle — jamais par l'opacité de leur texte. Un `opacity: 0.28` sur une carte typographique ferait tomber le libellé sous le seuil AA, alors que ce libellé porte du sens. Les angles écartés restent lisibles à 5,9:1.
 
 Partout ailleurs : une révélation discrète au défilement, pilotée par **un seul** `IntersectionObserver` monté dans le layout — pas un par composant. Aucune bibliothèque d'animation : le gain ne justifiait pas le poids.
 
@@ -156,6 +162,7 @@ Lighthouse mobile : **100 en accessibilité** sur toutes les pages testées.
 | Ombre grise molle sous tous les blocs | Filets d'un pixel et surfaces surélevées de quelques points de luminosité |
 | Emojis en guise d'icônes | Lucide, et du SVG dessiné à la main pour la marque |
 | Faux témoignages, logos clients empruntés | Le seul mandat réel est nommé ; sinon, les secteurs desservis |
+| Photo d'illustration achetée en banque d'images | Aucune image sur le site — les blocs qui en auraient reçu une sont typographiques |
 
 ---
 
@@ -172,5 +179,6 @@ Lighthouse mobile : **100 en accessibilité** sur toutes les pages testées.
 | Pages légales | `content/legal.ts` |
 | Articles de blogue | `content/blogue/*.md` |
 | Courriels de bienvenue | `content/emails/*.md` |
+| Palier d'un service (principal / appui) | `content/services.ts`, champ `tier` |
 
 Aucun texte visible n'est codé en dur dans un composant. Vous devez pouvoir changer un titre sans lire une ligne de JSX.

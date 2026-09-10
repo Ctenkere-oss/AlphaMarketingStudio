@@ -23,7 +23,7 @@ export function ServiceBlock({ service, featured }: { service: Service; featured
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:gap-14">
         <div className={featured ? "" : "lg:sticky lg:top-28 lg:self-start"}>
           <div className="flex flex-wrap items-center gap-3">
-            <h2
+            <h3
               className={
                 featured
                   ? "font-display text-[clamp(1.6rem,1.25rem+1.4vw,2.2rem)] leading-tight font-bold tracking-tight text-bone"
@@ -31,10 +31,10 @@ export function ServiceBlock({ service, featured }: { service: Service; featured
               }
             >
               {service.nav}
-            </h2>
+            </h3>
             {featured ? (
               <span className="rounded-full border border-indigo/45 bg-indigo/12 px-2.5 py-1 text-micro font-semibold text-link">
-                Service principal
+                Produit principal
               </span>
             ) : null}
           </div>
@@ -64,7 +64,7 @@ export function ServiceBlock({ service, featured }: { service: Service; featured
 
         <div className="grid gap-8 sm:grid-cols-2">
           <div className="sm:col-span-2">
-            <h3 className="text-small font-semibold text-bone">Ce que je livre</h3>
+            <h4 className="text-small font-semibold text-bone">Ce que je livre</h4>
             <ul className="mt-4 grid gap-2.5 sm:grid-cols-2 sm:gap-x-8">
               {service.deliverables.map((item) => (
                 <li key={item} className="relative pl-5 text-small text-mist">
@@ -79,7 +79,7 @@ export function ServiceBlock({ service, featured }: { service: Service; featured
           </div>
 
           <div>
-            <h3 className="text-small font-semibold text-bone">Comment on mesure</h3>
+            <h4 className="text-small font-semibold text-bone">Comment on mesure</h4>
             <ul className="mt-4 space-y-2.5">
               {service.measure.map((item) => (
                 <li key={item} className="relative pl-5 text-small text-mist">
@@ -94,7 +94,7 @@ export function ServiceBlock({ service, featured }: { service: Service; featured
           </div>
 
           <div>
-            <h3 className="text-small font-semibold text-mute">Ce que ça ne couvre pas</h3>
+            <h4 className="text-small font-semibold text-mute">Ce que ça ne couvre pas</h4>
             <ul className="mt-4 space-y-2.5">
               {service.excluded.map((item) => (
                 <li key={item} className="relative pl-5 text-small text-mute">
