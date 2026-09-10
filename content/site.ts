@@ -46,6 +46,20 @@ export const site = {
   },
 
   hours: "Du lundi au vendredi, de 9 h à 18 h (HE)",
+
+  /** Réservation en ligne — Square Appointments. */
+  booking: {
+    /** Script d'intégration fourni par Square. Un seul endroit à changer. */
+    scriptSrc:
+      "https://square.site/appointments/buyer/widget/sa2qeqc11tmnqv/LTY36KK1T6QJV.js",
+    /**
+     * Page de réservation Square, en repli si l'intégration ne charge pas
+     * (bloqueur de traceurs, script indisponible). Vide = le repli affiche
+     * seulement le courriel. À récupérer dans Square : Rendez-vous →
+     * Canaux en ligne → Site de réservation.
+     */
+    directUrl: "[[À COMPLÉTER : URL publique de votre page de réservation Square]]" as string,
+  },
   responseTime: "48 h",
 
   social: {

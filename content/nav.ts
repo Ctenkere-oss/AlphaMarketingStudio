@@ -23,6 +23,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { href: "/a-propos", label: "À propos" },
       { href: "/blogue", label: "Blogue" },
       { href: "/contact", label: "Contact" },
+      { href: "/reservation", label: "Réserver un appel" },
     ],
   },
   {

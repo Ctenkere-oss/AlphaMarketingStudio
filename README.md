@@ -94,6 +94,8 @@ Aucun texte visible n'est codé en dur dans un composant.
 | Services : promesses, livrables, exclusions, pages complètes | `content/services.ts` |
 | Questions de la FAQ | `content/faq.ts` |
 | Page À propos | `content/about.ts` |
+| Page de réservation (textes) | `content/booking.ts` |
+| Script du calendrier Square | `content/site.ts`, champ `booking` |
 | Politique de confidentialité, conditions d'utilisation | `content/legal.ts` |
 | Articles de blogue | `content/blogue/*.md` |
 | Couleurs, tailles, espacements | `app/tokens.css` |
@@ -156,6 +158,7 @@ Le tunnel est complet et fonctionnel — il ne manque que le fichier.
 app/                    Routes (App Router)
   api/contact/          Envoi du formulaire — Resend, Turnstile, limitation de débit
   api/subscribe/        Inscription à l'infolettre
+  reservation/          Calendrier Square, chargé après consentement
   services/[slug]/      Quatre pages enfants, générées depuis content/services.ts
   blogue/[slug]/        Articles, générés depuis content/blogue/*.md
   fonts/                Polices auto-hébergées (woff2 variable)
@@ -178,6 +181,7 @@ scripts/                todos.mjs, check-seo.mjs
 - Formulaires protégés par un champ pot-de-miel, une limitation de débit par adresse IP et Cloudflare Turnstile.
 - Validation Zod côté serveur **et** côté client, avec le même schéma.
 - Bannière de consentement Loi 25 : refuser est aussi simple qu'accepter, et rien n'est déposé avant le choix.
+- Calendrier Square chargé seulement après un clic explicite du visiteur : le service tiers ne dépose rien tant que personne ne l'a demandé, et il ne pèse pas sur le temps de chargement de la page.
 - Double opt-in obligatoire pour l'infolettre (LCAP).
 - Case d'inscription à l'infolettre jamais cochée d'avance.
 - En-têtes de sécurité HTTP configurés dans `next.config.ts`.

@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/jsonld";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
-import { TextLink } from "@/components/ui/Button";
+import { ButtonLink, TextLink } from "@/components/ui/Button";
 import { ContactForm } from "@/components/ContactForm";
 import { site, socialLinks } from "@/content/site";
 
@@ -49,6 +49,18 @@ export default function ContactPage() {
         <ContactForm />
 
         <aside className="lg:sticky lg:top-28 lg:h-fit">
+          <div className="mb-5 rounded-frame border border-line bg-ink-raised p-6">
+            <h2 className="font-display text-subtitle font-bold text-bone">
+              Vous préférez parler ?
+            </h2>
+            <p className="mt-2 text-small text-mist">
+              Choisissez un créneau dans le calendrier et on regarde votre situation en direct.
+            </p>
+            <ButtonLink href="/reservation" className="mt-5 w-full">
+              Réserver un appel
+            </ButtonLink>
+          </div>
+
           <div className="rounded-frame border border-line bg-ink-raised p-6">
             <h2 className="font-display text-subtitle font-bold text-bone">
               Ou sans passer par le formulaire

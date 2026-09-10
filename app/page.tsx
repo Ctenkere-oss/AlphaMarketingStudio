@@ -18,7 +18,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 export const metadata: Metadata = buildMetadata({
   title: "Publicités Meta pour PME à Montréal | Alpha Marketing",
   description:
-    "Gestion de campagnes Facebook et Instagram pour les PME du Grand Montréal. Sites web à 500 $ et réseaux sociaux en appui. Un seul interlocuteur : celui qui exécute.",
+    "Gestion de campagnes Facebook et Instagram pour PME du Grand Montréal. Sites web à 500 $ et réseaux sociaux en appui. Un seul interlocuteur : celui qui exécute.",
   path: "/",
 });
 

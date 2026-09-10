@@ -22,6 +22,7 @@ const paths = [
   "/services/seo-local",
   "/a-propos",
   "/contact",
+  "/reservation",
   "/blogue",
   "/blogue/cout-campagne-meta-ads-pme-quebec",
   "/blogue/site-web-500-dollars-ce-qui-est-inclus",

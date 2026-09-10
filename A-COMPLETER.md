@@ -64,7 +64,19 @@ J'ai utilisé **« Ayram Barry Avocat »**, tel qu'indiqué dans le brief. Les c
 
 ## Important — pas encore visible, mais attendu
 
-### 6. Le guide en PDF
+### 6. URL de repli de votre page de réservation Square
+
+`content/site.ts` → `booking.directUrl`
+
+Le calendrier Square est intégré sur `/reservation`. S'il ne se charge pas — un bloqueur de publicités suffit — la page bascule sur un repli. Il lui manque une valeur : l'adresse publique de votre page de réservation Square.
+
+Où la trouver : dans Square, **Rendez-vous → Canaux en ligne → Site de réservation**. Copiez l'adresse publique et collez-la dans `booking.directUrl`.
+
+Tant que le champ contient le marqueur, le repli n'affiche que votre courriel — ce qui fonctionne, mais fait perdre les gens qui voulaient simplement cliquer.
+
+> **À vérifier après le déploiement.** Je n'ai pas pu tester l'intégration : le réseau de cet environnement de développement bloque `square.site`. Le code est écrit pour les deux comportements possibles du script d'intégration, mais ouvrez `/reservation` sur le site en ligne, cliquez « Afficher le calendrier », et confirmez que le calendrier apparaît. S'il ne s'affiche pas au bout de huit secondes, la page bascule d'elle-même sur le repli — dites-le-moi et j'ajusterai.
+
+### 7. Le guide en PDF
 
 Le tunnel complet est en place : formulaire → double opt-in → courriel de livraison. Il ne manque que le fichier.
 
@@ -72,7 +84,7 @@ Le tunnel complet est en place : formulaire → double opt-in → courriel de li
 2. Téléversez-le dans Brevo (**Contenu → Médias**).
 3. Collez l'URL dans `content/emails/01-livraison-guide.md`, à la place de `LIEN_VERS_LE_PDF`.
 
-### 7. Identifiant TikTok et URL LinkedIn
+### 8. Identifiant TikTok et URL LinkedIn
 
 `content/site.ts` lignes **63** et **68**
 
@@ -80,19 +92,19 @@ Les liens sont **automatiquement masqués** tant que le champ `url` est vide —
 
 Votre profil Instagram a une story à la une « TIKTOK » : l'identifiant est probablement déjà actif.
 
-### 8. Nom de domaine
+### 9. Nom de domaine
 
 `content/site.ts` → `url`
 
 J'ai supposé `https://www.alphamarketingstudio.com`. **Cette valeur alimente les URL canoniques, le sitemap et les images Open Graph** — corrigez-la avant le déploiement si le domaine réel diffère. C'est le seul endroit à modifier.
 
-### 9. Téléphone
+### 10. Téléphone
 
 `content/site.ts` → `phone`
 
 Vide, donc **aucun numéro n'est affiché** et aucun lien `tel:` n'est généré. Remplissez le champ pour l'activer partout d'un coup. Pour une PME locale, un numéro cliquable sur mobile augmente sensiblement les appels — à considérer.
 
-### 10. Clés d'environnement
+### 11. Clés d'environnement
 
 Voir `.env.example`. Sans elles, le site fonctionne mais **l'infolettre et le formulaire de contact n'expédient rien**.
 
@@ -104,7 +116,7 @@ Voir `.env.example`. Sans elles, le site fonctionne mais **l'infolettre et le fo
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | dash.cloudflare.com → Turnstile |
 | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID` | Facultatif — chargés seulement après consentement |
 
-### 11. Séquence de bienvenue dans Brevo
+### 12. Séquence de bienvenue dans Brevo
 
 Les quatre courriels sont rédigés dans `content/emails/`. Ils doivent être **collés dans Brevo** et branchés sur un scénario. Mode d'emploi : `content/emails/00-lisez-moi.md`.
 
@@ -114,21 +126,21 @@ Les quatre courriels sont rédigés dans `content/emails/`. Ils doivent être **
 
 > **Les textes légaux du site sont des gabarits sérieux, pas des avis juridiques.** Ils ont été rédigés pour une entreprise de services québécoise soumise à la Loi 25 et à la LCAP, mais ils doivent être relus par un professionnel du droit avant d'être considérés comme définitifs. Les quatre passages ci-dessous sont ceux où seul vous — ou votre avocat, ou votre comptable — pouvez trancher.
 
-### 12. Adresse postale d'entreprise
+### 13. Adresse postale d'entreprise
 `content/legal.ts` ligne **36**
 
 **La LCAP exige une adresse postale valide dans chaque courriel commercial.** Une case postale convient. Sans elle, votre infolettre n'est pas conforme, même avec le double opt-in.
 
-### 13. Durée de conservation des documents de mandat
+### 14. Durée de conservation des documents de mandat
 `content/legal.ts` ligne **75** — à faire confirmer par votre comptable.
 
-### 14. Inscription à la TPS et à la TVQ
+### 15. Inscription à la TPS et à la TVQ
 `content/legal.ts` ligne **150** — indiquez si vous êtes inscrit, et si oui, ajoutez vos numéros.
 
-### 15. Clause de limitation de responsabilité
+### 16. Clause de limitation de responsabilité
 `content/legal.ts` ligne **186** — **à faire relire par un avocat.** Une limitation de responsabilité mal rédigée n'est pas opposable, et c'est précisément la clause qui sert le jour où vous en avez besoin.
 
-### 16. NEQ
+### 17. NEQ
 `content/site.ts` → `neq`
 
 Vide, donc non affiché. Si vous êtes immatriculé au registre des entreprises du Québec, ajoutez le numéro : il apparaîtra dans le pied de page et renforce la crédibilité auprès des PME.
@@ -137,19 +149,19 @@ Vide, donc non affiché. Si vous êtes immatriculé au registre des entreprises 
 
 ## Décisions commerciales à trancher
 
-### 17. Prix de la gestion publicitaire et du contenu social
+### 18. Prix de la gestion publicitaire et du contenu social
 
 Affichés « sur soumission » sur la page Services (`content/services.ts` → champ `price` de chaque service). **Je n'ai fabriqué aucun montant.**
 
 Si vous voulez afficher un « à partir de », c'est un avantage réel face aux agences qui cachent tout — mais c'est votre décision, et elle doit être tenable.
 
-### 18. Seuil de budget publicitaire
+### 19. Seuil de budget publicitaire
 
 Le site indique à plusieurs endroits un plancher d'environ **750 $ par mois** de budget média, et une fourchette de **750 $ à 1 500 $** dans la FAQ. Ce sont des repères de marché défendables, mais ce sont **vos** repères qui doivent y figurer.
 
 Vérifiez et ajustez dans : `content/faq.ts`, `content/services.ts` (page Publicités Meta), `content/blogue/cout-campagne-meta-ads-pme-quebec.md`.
 
-### 19. Engagement de trois mois
+### 20. Engagement de trois mois
 
 La FAQ mentionne un « engagement moral de trois mois » au début d'un mandat publicitaire. Confirmez que ça correspond à votre pratique — c'est le genre de phrase qu'un client vous citera.
 
@@ -180,7 +192,7 @@ Puis, une fois le site déployé :
 
 ## Question ouverte sur la nouvelle hiérarchie
 
-### 20. Le SEO local reste-t-il dans l'offre ?
+### 21. Le SEO local reste-t-il dans l'offre ?
 
 Vous avez nommé la publicité Meta comme produit principal, et le site web et la gestion des réseaux sociaux comme services secondaires. Le **SEO local** n'était pas dans votre liste.
 

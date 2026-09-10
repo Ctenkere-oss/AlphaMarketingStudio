@@ -62,6 +62,7 @@ export const privacy: LegalDoc = {
       paragraphs: [
         "Le consentement à l'infolettre est explicite et distinct : la case n'est jamais cochée d'avance, et l'inscription n'est active qu'après confirmation par un courriel de double consentement. Cette confirmation constitue la preuve de consentement exigée par la LCAP.",
         "Aucun témoin de mesure n'est déposé avant que vous ayez accepté la bannière. Refuser est aussi simple qu'accepter : un bouton, un clic, et le site fonctionne de façon identique.",
+        "Le calendrier de réservation de la page Réservation est un service de Square qui dépose ses propres témoins. Il ne se charge qu'après que vous avez cliqué pour l'afficher : ce clic constitue votre consentement, et il porte sur ce service précis. Sans ce clic, aucune donnée n'est transmise à Square.",
         "Vous pouvez retirer votre consentement en tout temps, sans avoir à vous justifier : lien de désabonnement dans chaque courriel, ou demande écrite à l'adresse ci-dessus.",
       ],
     },
@@ -85,6 +86,7 @@ export const privacy: LegalDoc = {
         "Brevo — envoi de l'infolettre et gestion des contacts (Union européenne).",
         "Resend — acheminement des messages du formulaire de contact (États-Unis).",
         "Cloudflare — vérification anti-robot Turnstile, sans témoin de suivi (réseau mondial).",
+        "Square (Block, Inc.) — calendrier de prise de rendez-vous sur la page Réservation, chargé uniquement après que vous avez cliqué pour l'afficher (États-Unis).",
         "Google Analytics 4 et Meta (pixel) — mesure d'audience, uniquement après votre consentement (États-Unis).",
       ],
     },
