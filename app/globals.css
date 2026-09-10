@@ -1,0 +1,293 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* L'en-tête collant mesure 68px : on décale les ancres d'autant. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.68;
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Focus clavier : visible, jamais supprimé. */
+  :focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-indigo-deep);
+    color: #ffffff;
+  }
+
+  /* Le mouvement est un agrément, jamais une condition d'accès. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+  }
+}
+
+/* ============================================================
+   Ambiance de fond — grille fine + halos.
+   Deux dégradés radiaux, aucun filtre `blur` : le flou GPU
+   sur une grande surface coûte des images par seconde sur
+   mobile, un dégradé à arrêts doux donne le même résultat.
+   ============================================================ */
+
+@utility backdrop-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 72%);
+}
+
+@utility backdrop-halo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(46rem 30rem at 12% -8%, color-mix(in oklab, var(--color-indigo) 26%, transparent) 0%, transparent 62%),
+    radial-gradient(38rem 26rem at 92% 6%, color-mix(in oklab, var(--color-violet) 20%, transparent) 0%, transparent 64%);
+}
+
+/* ============================================================
+   Motifs récurrents
+   ============================================================ */
+
+/* Filet dégradé : sépare les sections sans trait gris générique. */
+@utility rule-gradient {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-indigo) 55%, transparent) 22%,
+    color-mix(in oklab, var(--color-violet) 45%, transparent) 68%,
+    transparent
+  );
+}
+
+/* Texte en dégradé — réservé aux tailles ≥ 30px (contraste). */
+@utility text-gradient {
+  background: linear-gradient(120deg, var(--color-indigo) 0%, var(--color-violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Repli si `background-clip: text` n'est pas supporté. */
+  @supports not (background-clip: text) {
+    color: var(--color-link);
+  }
+}
+
+/* Dégradé de marque, deux intensités.
+   `accent`      : décoratif, ne porte jamais de texte sous 30px.
+   `accent-deep` : assombri, porte du texte blanc en respectant le AA. */
+@utility bg-accent {
+  background-image: linear-gradient(120deg, var(--color-indigo) 0%, var(--color-violet) 100%);
+}
+
+@utility bg-accent-deep {
+  background-image: linear-gradient(120deg, var(--color-indigo-deep) 0%, var(--color-violet-deep) 100%);
+}
+
+@utility surface {
+  background-color: var(--color-ink-raised);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+/* Zone tactile minimale de 44px sans gonfler le visuel. */
+@utility tap-safe {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 0 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ============================================================
+   Séquence d'ouverture du héros.
+   C'est la SEULE chorégraphie du site : les créas se posent,
+   les perdantes s'éteignent, la gagnante reste. Tout le reste
+   du site est immobile.
+   ============================================================ */
+
+@keyframes crea-deal {
+  from { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.965); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes crea-fade-out {
+  to { opacity: 0.28; filter: grayscale(1) contrast(0.85); }
+}
+
+@keyframes crea-win {
+  to { transform: translate3d(0, -8px, 0); }
+}
+
+@keyframes badge-in {
+  from { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Révélation au défilement — un seul niveau, piloté par
+   IntersectionObserver, sans bibliothèque. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    transition:
+      opacity 620ms var(--ease-out-soft),
+      transform 620ms var(--ease-out-soft);
+  }
+  [data-reveal][data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Texte long (blogue, pages légales)
+   ============================================================ */
+
+@utility prose-ams {
+  color: var(--color-mist);
+  font-size: var(--text-lead);
+  line-height: 1.72;
+
+  & > * + * { margin-top: 1.25em; }
+
+  & h2 {
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    font-size: var(--text-title);
+    line-height: 1.16;
+    letter-spacing: -0.022em;
+    margin-top: 2.4em;
+    scroll-margin-top: 6rem;
+  }
+
+  & h3 {
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    font-size: var(--text-subtitle);
+    line-height: 1.3;
+    margin-top: 1.9em;
+    scroll-margin-top: 6rem;
+  }
+
+  & a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in oklab, var(--color-link) 45%, transparent);
+  }
+  & a:hover { text-decoration-color: var(--color-link); }
+
+  & strong { color: var(--color-bone); font-weight: 600; }
+
+  & ul, & ol { padding-left: 1.35em; }
+  & ul { list-style: none; padding-left: 0; }
+  & ul > li {
+    position: relative;
+    padding-left: 1.4em;
+  }
+  & ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0.15em;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--color-indigo), var(--color-violet));
+  }
+  & ol { list-style: decimal; }
+  & li + li { margin-top: 0.5em; }
+  & ol > li::marker { color: var(--color-mute); font-variant-numeric: tabular-nums; }
+
+  & blockquote {
+    border-left: 2px solid transparent;
+    border-image: linear-gradient(180deg, var(--color-indigo), var(--color-violet)) 1;
+    padding-left: 1.25em;
+    color: var(--color-bone);
+    font-size: var(--text-lead);
+  }
+
+  & code {
+    font-size: 0.9em;
+    background: var(--color-ink-panel);
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    padding: 0.1em 0.4em;
+  }
+
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+    display: block;
+    overflow-x: auto;
+  }
+  & th, & td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.7em 0.9em;
+    text-align: left;
+    vertical-align: top;
+  }
+  & th { color: var(--color-bone); font-weight: 600; white-space: nowrap; }
+
+  & hr {
+    border: 0;
+    height: 1px;
+    background: var(--color-line);
+    margin-block: 2.5em;
+  }
+}

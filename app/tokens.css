@@ -1,0 +1,91 @@
+/* ============================================================
+   Alpha Marketing Studio — jetons de design
+   Source unique de vérité. Aucune valeur brute dans le JSX.
+   Voir DESIGN.md pour le raisonnement derrière chaque choix.
+   ============================================================ */
+
+@theme {
+  /* ---------- Couleurs ---------------------------------------
+     Ratios de contraste vérifiés sur le fond --color-ink.
+     Voir DESIGN.md § Contraste pour le tableau complet.        */
+
+  --color-ink: #07070b;          /* fond principal                        */
+  --color-ink-sunken: #050509;   /* pied de page, zones en retrait        */
+  --color-ink-raised: #0d0d15;   /* surfaces surélevées (cartes)          */
+  --color-ink-panel: #12121c;    /* panneaux internes, champs de saisie   */
+
+  --color-bone: #e9e9f2;         /* texte principal          15.7:1  AAA  */
+  --color-mist: #b9b9cc;         /* texte secondaire         10.1:1  AAA  */
+  --color-mute: #8a8aa0;         /* texte tertiaire, légendes  5.9:1  AA  */
+
+  --color-link: #93a4ff;         /* liens en ligne            8.4:1  AAA  */
+
+  /* Accents décoratifs — jamais sur du texte sous 30px. */
+  --color-indigo: #6366f1;
+  --color-violet: #a855f7;
+  /* Accents porteurs de texte — assombris pour passer AA en blanc. */
+  --color-indigo-deep: #4f46e5;  /* blanc dessus              6.2:1  AA   */
+  --color-violet-deep: #7c3aed;  /* blanc dessus              5.7:1  AA   */
+
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-line-faint: rgba(255, 255, 255, 0.055);
+
+  --color-warn: #f0b429;         /* marqueurs [[À COMPLÉTER]] uniquement  */
+  --color-danger: #ff8b8b;       /* erreurs de formulaire     7.8:1  AAA  */
+  --color-ok: #6ee7b7;           /* confirmations            11.4:1  AAA  */
+
+  /* ---------- Typographie ------------------------------------ */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Échelle fluide. Le second nombre borne la valeur à 1440px. */
+  --text-display-1: clamp(2.5rem, 1.65rem + 3.4vw, 4rem);
+  --text-display-1--line-height: 1.02;
+  --text-display-1--letter-spacing: -0.032em;
+  --text-display-1--font-weight: 700;
+
+  --text-display-2: clamp(2.125rem, 1.45rem + 2.7vw, 3.25rem);
+  --text-display-2--line-height: 1.06;
+  --text-display-2--letter-spacing: -0.028em;
+  --text-display-2--font-weight: 700;
+
+  --text-title: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  --text-title--line-height: 1.14;
+  --text-title--letter-spacing: -0.022em;
+  --text-title--font-weight: 700;
+
+  --text-subtitle: clamp(1.25rem, 1.13rem + 0.5vw, 1.5rem);
+  --text-subtitle--line-height: 1.24;
+  --text-subtitle--letter-spacing: -0.015em;
+  --text-subtitle--font-weight: 600;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.62;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.68;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+
+  --text-micro: 0.8125rem;
+  --text-micro--line-height: 1.45;
+
+  /* ---------- Espacements nommés ------------------------------ */
+  --spacing-gutter: 1.25rem;     /* marge latérale mobile        */
+  --spacing-shelf: 4rem;         /* respiration entre blocs      */
+  --spacing-section: 6rem;       /* rythme vertical des sections */
+
+  /* ---------- Rayons ----------------------------------------- */
+  --radius-control: 10px;        /* boutons, champs              */
+  --radius-card: 14px;           /* surfaces                     */
+  --radius-frame: 18px;          /* grands panneaux, visuels     */
+
+  /* ---------- Largeurs de lecture ----------------------------- */
+  --container-shell: 76rem;      /* largeur maximale du site     */
+  --container-read: 42rem;       /* colonne de texte longue      */
+
+  /* ---------- Mouvement --------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
