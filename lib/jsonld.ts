@@ -48,6 +48,24 @@ export function personSchema() {
     jobTitle: site.founder.title,
     worksFor: { "@id": ORG_ID },
     url: absoluteUrl("/a-propos"),
+    image: absoluteUrl(site.founder.photo),
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: site.founder.school,
+    },
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certificate",
+      name: site.founder.certification,
+      recognizedBy: { "@type": "Organization", name: "Meta" },
+    },
+    knowsAbout: [
+      "Publicité Meta",
+      "Facebook Ads",
+      "Instagram Ads",
+      "Marketing de contenu",
+      "SEO local",
+    ],
     ...(socialLinks.length ? { sameAs: socialLinks.map((s) => s.url) } : {}),
   };
 }

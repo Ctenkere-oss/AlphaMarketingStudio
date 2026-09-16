@@ -13,6 +13,14 @@ export const site = {
     name: "Ibrahima Sory Barry",
     firstName: "Ibrahima",
     title: "Fondateur et stratège en acquisition payante",
+    photo: "/images/fondateur.webp",
+    photoAlt:
+      "Ibrahima Sory Barry, fondateur d'Alpha Marketing Studio, en veston et col roulé",
+    /** Faits vérifiables, repris dans le balisage Person. */
+    foundedYear: 2024,
+    school: "HEC Montréal",
+    program: "Gestion marketing",
+    certification: "Social Media Management et Marketing — Meta",
   },
 
   email: "alphamarketingstudio@outlook.com",

@@ -1,7 +1,4 @@
 import { z } from "zod";
-import { budgetOptions, serviceOptions } from "./form-options";
-
-export { budgetOptions, serviceOptions };
 
 /**
  * Schémas partagés par le navigateur et le serveur.
@@ -9,17 +6,14 @@ export { budgetOptions, serviceOptions };
  * valide parce que c'est le seul endroit où la validation compte.
  */
 
-const nonEmptyValues = (options: readonly { value: string }[]) =>
-  options.map((o) => o.value).filter((v) => v !== "");
-
-const budgetValues = nonEmptyValues(budgetOptions);
-const serviceValues = nonEmptyValues(serviceOptions);
+/** 10 à 15 chiffres, quel que soit le formatage saisi. */
+const chiffres = (valeur: string) => valeur.replace(/\D/g, "");
 
 export const contactSchema = z.object({
   nom: z
     .string()
     .trim()
-    .min(2, "Indiquez votre nom, même juste le prénom.")
+    .min(2, "Indiquez votre nom complet.")
     .max(80, "Ce nom dépasse 80 caractères."),
   courriel: z
     .string()
@@ -27,17 +21,16 @@ export const contactSchema = z.object({
     .min(1, "J'ai besoin d'une adresse courriel pour vous répondre.")
     .email("Cette adresse ne semble pas valide. Vérifiez le @ et le point.")
     .max(160)
-    .transform((value) => value.toLowerCase()),
-  entreprise: z.string().trim().max(120).optional().or(z.literal("")),
-  // Validé par `refine` plutôt que par `z.enum` : sur une valeur
-  // inattendue, `z.enum` renvoie son message anglais par défaut, qui
-  // finirait par s'afficher sous le champ.
-  budget: z
+    .transform((valeur) => valeur.toLowerCase()),
+  telephone: z
     .string()
-    .refine((v) => budgetValues.includes(v), "Choisissez une fourchette, même approximative."),
-  service: z
-    .string()
-    .refine((v) => serviceValues.includes(v), "Dites-moi ce qui vous intéresse."),
+    .trim()
+    .min(1, "Indiquez un numéro où vous rejoindre.")
+    .max(30)
+    .refine(
+      (valeur) => chiffres(valeur).length >= 10 && chiffres(valeur).length <= 15,
+      "Ce numéro semble incomplet. Dix chiffres, par exemple 514 555 0199.",
+    ),
   message: z
     .string()
     .trim()
@@ -66,7 +59,7 @@ export const subscribeSchema = z.object({
     .min(1, "Entrez votre adresse courriel.")
     .email("Cette adresse ne semble pas valide.")
     .max(160)
-    .transform((value) => value.toLowerCase()),
+    .transform((valeur) => valeur.toLowerCase()),
   source: z.string().trim().max(60).default("inconnu"),
   /** Pot-de-miel — accepté par le schéma, vérifié par la route. */
   site_web_secondaire: z.string().max(500).optional().default(""),

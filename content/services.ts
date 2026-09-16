@@ -230,7 +230,7 @@ export const services: Service[] = [
         heading: "On commence par les questions, pas par les idées",
         paragraphs: [
           "La ligne éditoriale ne sort pas d'une séance de remue-méninges. Elle sort de ce que vos clients vous demandent déjà : les questions posées au téléphone, celles répétées en consultation, celles qui reviennent en soumission.",
-          "Chacune de ces questions est une vidéo. Elle a l'avantage d'être une vraie question, donc d'intéresser quelqu'un, et elle attire exactement les gens qui ont ce problème — c'est-à-dire vos futurs clients. C'est la méthode utilisée pour le cabinet Ayram Barry Avocat : les vidéos répondent aux questions réellement posées en consultation d'immigration.",
+          "Chacune de ces questions est une vidéo. Elle a l'avantage d'être une vraie question, donc d'intéresser quelqu'un, et elle attire exactement les gens qui ont ce problème — c'est-à-dire vos futurs clients. C'est la méthode utilisée pour le cabinet Barry Avocat : les vidéos répondent aux questions réellement posées en consultation d'immigration.",
         ],
       },
       {

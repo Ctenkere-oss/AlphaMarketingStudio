@@ -162,7 +162,7 @@ Lighthouse mobile : **100 en accessibilité** sur toutes les pages testées.
 | Ombre grise molle sous tous les blocs | Filets d'un pixel et surfaces surélevées de quelques points de luminosité |
 | Emojis en guise d'icônes | Lucide, et du SVG dessiné à la main pour la marque |
 | Faux témoignages, logos clients empruntés | Le seul mandat réel est nommé ; sinon, les secteurs desservis |
-| Photo d'illustration achetée en banque d'images | Aucune image sur le site — les blocs qui en auraient reçu une sont typographiques |
+| Photo d'illustration achetée en banque d'images | Une seule image sur tout le site : le portrait du fondateur. Les autres blocs sont typographiques |
 
 ---
 

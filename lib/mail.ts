@@ -1,6 +1,5 @@
 import { Resend } from "resend";
 import { site } from "@/content/site";
-import { budgetOptions, serviceOptions } from "./form-options";
 import type { ContactInput } from "./validation";
 
 /**
@@ -9,15 +8,15 @@ import type { ContactInput } from "./validation";
  * un Route Handler, jamais par un appel direct depuis le navigateur.
  */
 
-const label = (options: readonly { value: string; label: string }[], value: string) =>
-  options.find((o) => o.value === value)?.label ?? value;
-
 const escapeHtml = (value: string) =>
   value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+
+/** `tel:` n'accepte ni espaces ni ponctuation. */
+const telLink = (value: string) => value.replace(/[^\d+]/g, "");
 
 export async function sendContactEmail(input: ContactInput): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
@@ -26,7 +25,7 @@ export async function sendContactEmail(input: ContactInput): Promise<boolean> {
   if (!apiKey || !from) {
     console.warn(
       "[contact] RESEND_API_KEY ou CONTACT_FROM_EMAIL absent — message reçu mais non expédié :",
-      { nom: input.nom, courriel: input.courriel, service: input.service },
+      { nom: input.nom, courriel: input.courriel },
     );
     return false;
   }
@@ -34,9 +33,7 @@ export async function sendContactEmail(input: ContactInput): Promise<boolean> {
   const rows: [string, string][] = [
     ["Nom", input.nom],
     ["Courriel", input.courriel],
-    ["Entreprise", input.entreprise || "—"],
-    ["Budget mensuel", label(budgetOptions, input.budget)],
-    ["Service", label(serviceOptions, input.service)],
+    ["Téléphone", input.telephone],
     ["Infolettre", input.infolettre ? "Oui, a coché la case" : "Non"],
   ];
 
@@ -54,7 +51,12 @@ export async function sendContactEmail(input: ContactInput): Promise<boolean> {
           )
           .join("")}
       </table>
-      <h3 style="margin:24px 0 8px;font-size:15px">Message</h3>
+      <p style="margin:18px 0 0">
+        <a href="mailto:${escapeHtml(input.courriel)}" style="color:#4f46e5">Répondre par courriel</a>
+        &nbsp;·&nbsp;
+        <a href="tel:${escapeHtml(telLink(input.telephone))}" style="color:#4f46e5">Appeler</a>
+      </p>
+      <h3 style="margin:24px 0 8px;font-size:15px">Demande</h3>
       <p style="white-space:pre-wrap;margin:0;padding:14px;background:#f5f5f7;border-radius:8px">${escapeHtml(
         input.message,
       )}</p>
@@ -63,7 +65,7 @@ export async function sendContactEmail(input: ContactInput): Promise<boolean> {
   const text = [
     ...rows.map(([key, value]) => `${key} : ${value}`),
     "",
-    "Message :",
+    "Demande :",
     input.message,
   ].join("\n");
 
@@ -74,7 +76,7 @@ export async function sendContactEmail(input: ContactInput): Promise<boolean> {
       to: site.email,
       // Répondre depuis la boîte de réception écrit directement au prospect.
       replyTo: input.courriel,
-      subject: `Demande — ${input.nom}${input.entreprise ? ` (${input.entreprise})` : ""}`,
+      subject: `Demande — ${input.nom}`,
       html,
       text,
     });

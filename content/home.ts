@@ -101,7 +101,7 @@ export const method = {
 
 export const caseStudy = {
   eyebrow: "Étude de cas",
-  client: "Ayram Barry Avocat",
+  client: "Barry Avocat",
   title: "Un cabinet d'avocats qui publie comme un média",
   context:
     "Cabinet montréalais en droit de l'immigration et en droit des affaires. Une clientèle qui cherche des réponses avant de chercher un avocat, et qui pose ses questions sur Instagram et TikTok bien avant de décrocher le téléphone.",

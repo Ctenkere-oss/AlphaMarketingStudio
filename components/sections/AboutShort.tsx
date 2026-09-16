@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { aboutShort } from "@/content/home";
@@ -7,20 +8,19 @@ export function AboutShort() {
   return (
     <Section id="a-propos">
       <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1fr)] lg:gap-16">
-        {/* Panneau typographique à la place du portrait : la signature
-            du fondateur porte la même fonction de présence. */}
-        <div
-          data-reveal
-          className="relative overflow-hidden rounded-frame border border-line bg-ink-raised p-7"
-        >
-          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-accent" />
-          <p className="font-display text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] leading-tight font-bold tracking-tight text-bone">
-            {site.founder.name}
-          </p>
-          <p className="mt-2 text-small text-mist">{site.founder.title}</p>
-          <p className="mt-6 border-t border-line pt-5 text-micro text-mute">
-            {site.city}, {site.regionName} — travaille en français et en anglais
-          </p>
+        <div data-reveal className="relative">
+          <span
+            aria-hidden="true"
+            className="absolute -inset-2 -z-10 rounded-frame bg-accent opacity-20"
+          />
+          <Image
+            src={site.founder.photo}
+            alt={site.founder.photoAlt}
+            width={960}
+            height={1200}
+            sizes="(min-width: 1024px) 340px, 80vw"
+            className="w-full rounded-frame border border-line object-cover"
+          />
         </div>
 
         <div data-reveal data-reveal-delay="80">
@@ -30,6 +30,9 @@ export function AboutShort() {
               {paragraph}
             </p>
           ))}
+          <p className="mt-6 text-small text-mute">
+            {site.founder.name} — {site.founder.title}
+          </p>
           <ButtonLink href={aboutShort.cta.href} variant="secondary" className="mt-7">
             {aboutShort.cta.label}
           </ButtonLink>

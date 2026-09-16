@@ -42,6 +42,11 @@ export default function ContactPage() {
             votre site et votre fiche Google, puis je vous renvoie ce que j&apos;y trouve. Vous
             gardez le document, que l&apos;on travaille ensemble ou non.
           </p>
+          <p className="mt-3 max-w-2xl text-small text-mute">
+            Une autre question, une demande de soumission, ou simplement envie de savoir si je peux
+            aider ? Le même formulaire fait l&apos;affaire — il arrive directement dans ma boîte de
+            réception.
+          </p>
         </Container>
       </div>
 

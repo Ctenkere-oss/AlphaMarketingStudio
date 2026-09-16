@@ -3,18 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import {
-  CheckboxField,
-  Honeypot,
-  SelectField,
-  TextArea,
-  TextField,
-} from "@/components/ui/Field";
+import { CheckboxField, Honeypot, TextArea, TextField } from "@/components/ui/Field";
 import { Turnstile } from "@/components/Turnstile";
-import { budgetOptions, serviceOptions } from "@/lib/form-options";
 
 type Status = "idle" | "sending" | "error";
 
+/**
+ * Formulaire de contact volontairement court : nom, courriel, téléphone,
+ * message. Chaque champ retiré est une demande de plus qui arrive —
+ * un formulaire qui demande un budget avant de dire bonjour fait fuir
+ * exactement les gens qu'on veut rencontrer.
+ */
 export function ContactForm() {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
@@ -31,9 +30,7 @@ export function ContactForm() {
     const payload = {
       nom: String(data.get("nom") ?? ""),
       courriel: String(data.get("courriel") ?? ""),
-      entreprise: String(data.get("entreprise") ?? ""),
-      budget: String(data.get("budget") ?? ""),
-      service: String(data.get("service") ?? ""),
+      telephone: String(data.get("telephone") ?? ""),
       message: String(data.get("message") ?? ""),
       infolettre: data.get("infolettre") === "on",
       site_web_secondaire: String(data.get("site_web_secondaire") ?? ""),
@@ -94,15 +91,16 @@ export function ContactForm() {
     <form onSubmit={onSubmit} noValidate className="relative space-y-6">
       <Honeypot />
 
+      <TextField
+        label="Nom complet"
+        name="nom"
+        required
+        autoComplete="name"
+        error={errors.nom}
+        placeholder="Marie Tremblay"
+      />
+
       <div className="grid gap-6 sm:grid-cols-2">
-        <TextField
-          label="Votre nom"
-          name="nom"
-          required
-          autoComplete="name"
-          error={errors.nom}
-          placeholder="Ibrahima Barry"
-        />
         <TextField
           label="Courriel"
           name="courriel"
@@ -113,42 +111,25 @@ export function ContactForm() {
           error={errors.courriel}
           placeholder="vous@entreprise.com"
         />
-      </div>
-
-      <TextField
-        label="Entreprise"
-        name="entreprise"
-        autoComplete="organization"
-        error={errors.entreprise}
-        placeholder="Nom de votre entreprise"
-      />
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        <SelectField
-          label="Budget publicitaire mensuel"
-          name="budget"
+        <TextField
+          label="Téléphone"
+          name="telephone"
+          type="tel"
+          inputMode="tel"
           required
-          options={[...budgetOptions]}
-          error={errors.budget}
-          hint="Une approximation suffit. Ce montant est payé à Meta, pas à moi."
-          defaultValue=""
-        />
-        <SelectField
-          label="Ce qui vous intéresse"
-          name="service"
-          required
-          options={[...serviceOptions]}
-          error={errors.service}
-          defaultValue=""
+          autoComplete="tel"
+          error={errors.telephone}
+          placeholder="514 555 0199"
         />
       </div>
 
       <TextArea
-        label="Votre message"
+        label="Votre demande"
         name="message"
         required
+        rows={7}
         error={errors.message}
-        placeholder="Ce que vous vendez, à qui, et ce que vous avez déjà essayé. Trois lignes suffisent."
+        placeholder="Ce que vous vendez, à qui, et ce que vous cherchez à régler. Quelques lignes suffisent."
         hint="Ajoutez l'adresse de votre site si vous en avez un : je le regarde avant de répondre."
       />
 

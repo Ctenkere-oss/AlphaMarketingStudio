@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonld";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -60,31 +61,23 @@ export default function AboutPage() {
               ) : null}
             </div>
 
-            {/* Emplacement du portrait, tenu par une carte d'identité
-                typographique tant qu'aucune photo n'est fournie. */}
-            <div className="relative overflow-hidden rounded-frame border border-line bg-ink-raised p-8 lg:p-10">
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-accent" />
-              <p className="text-gradient font-display text-[clamp(2rem,1.5rem+2vw,2.75rem)] leading-[1.05] font-bold tracking-tight">
-                {site.founder.name}
-              </p>
-              <p className="mt-3 text-lead text-mist">{site.founder.title}</p>
-              <dl className="mt-8 space-y-3 border-t border-line pt-6 text-small">
-                <div className="flex justify-between gap-4">
-                  <dt className="text-mute">Basé à</dt>
-                  <dd className="text-bone">
-                    {site.city}, {site.regionName}
-                  </dd>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <dt className="text-mute">Langues</dt>
-                  <dd className="text-bone">Français et anglais</dd>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <dt className="text-mute">Réponse</dt>
-                  <dd className="text-bone">Sous {site.responseTime} ouvrables</dd>
-                </div>
-              </dl>
-            </div>
+            {/* La photo est traitée comme un élément de mise en page,
+                pas comme une vignette ronde de 80 px. */}
+            <figure className="relative">
+              <span
+                aria-hidden="true"
+                className="absolute -inset-2.5 -z-10 rounded-frame bg-accent opacity-25"
+              />
+              <Image
+                src={site.founder.photo}
+                alt={site.founder.photoAlt}
+                width={960}
+                height={1200}
+                priority
+                sizes="(min-width: 1024px) 420px, 88vw"
+                className="w-full rounded-frame border border-line object-cover"
+              />
+            </figure>
           </div>
         </Container>
       </div>

@@ -8,7 +8,7 @@ Bonjour,
 
 Un exemple concret, parce que la théorie ne vaut rien sans un cas réel.
 
-Je gère la présence Instagram et TikTok d'**Ayram Barry Avocat**, un cabinet montréalais en droit de l'immigration et en droit des affaires. Une clientèle qui cherche des réponses bien avant de chercher un avocat — et qui pose ses questions en ligne, jamais au téléphone d'abord.
+Je gère la présence Instagram et TikTok d'**Barry Avocat**, un cabinet montréalais en droit de l'immigration et en droit des affaires. Une clientèle qui cherche des réponses bien avant de chercher un avocat — et qui pose ses questions en ligne, jamais au téléphone d'abord.
 
 **Le point de départ**
 

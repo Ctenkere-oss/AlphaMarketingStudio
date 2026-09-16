@@ -2,7 +2,7 @@
 
 Site vitrine d'Alpha Marketing Studio, studio d'acquisition numérique à Montréal, spécialisé en **publicités Meta pour PME**. La création de sites web, la gestion des réseaux sociaux et le SEO local y sont présentés comme des services en appui.
 
-Le site ne contient **aucune image** : les blocs qui en porteraient habituellement une — le héros, l'étude de cas, la page À propos — sont typographiques. Les seuls fichiers image sont générés par le code (cartes de partage Open Graph et favicon) et n'apparaissent pas dans les pages.
+Le site ne contient qu'**une seule image** : le portrait du fondateur, sur la page À propos et sur l'accueil. Tout le reste est typographique, y compris le héros et l'étude de cas. Les cartes de partage Open Graph et le favicon sont générés par le code.
 Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · déploiement Vercel.
 
 - **Conception et raisons des choix** → [`DESIGN.md`](./DESIGN.md)
@@ -94,6 +94,8 @@ Aucun texte visible n'est codé en dur dans un composant.
 | Services : promesses, livrables, exclusions, pages complètes | `content/services.ts` |
 | Questions de la FAQ | `content/faq.ts` |
 | Page À propos | `content/about.ts` |
+| Biographie, formation, certifications | `content/about.ts` et `content/site.ts` → `founder` |
+| Champs du formulaire de contact | `lib/validation.ts` → `contactSchema` |
 | Page de réservation (textes) | `content/booking.ts` |
 | Script du calendrier Square | `content/site.ts`, champ `booking` |
 | Politique de confidentialité, conditions d'utilisation | `content/legal.ts` |
