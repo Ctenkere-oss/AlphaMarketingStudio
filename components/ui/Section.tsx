@@ -5,22 +5,42 @@ type Props = {
   id?: string;
   /** `sunken` distingue une section sans la transformer en carte. */
   tone?: "default" | "sunken";
+  /** `bleed` retire la marge latérale : section volontairement bord à bord. */
+  width?: "shell" | "read" | "bleed";
   className?: string;
   containerClassName?: string;
   children: React.ReactNode;
 };
 
-export function Section({ id, tone = "default", className, containerClassName, children }: Props) {
+/**
+ * Enveloppe de section unique.
+ *
+ * Elle porte le rythme vertical du site — `--spacing-section`, soit
+ * clamp(4rem, 2rem + 8vw, 12.5rem) : environ 64 px sur téléphone,
+ * 150 px à 1440 px, plafonné à 200 px. C'est la respiration demandée au
+ * §2.2, et aucune section ne doit la comprimer pour faire tenir plus de
+ * contenu.
+ */
+export function Section({
+  id,
+  tone = "default",
+  width = "shell",
+  className,
+  containerClassName,
+  children,
+}: Props) {
   return (
     <section
       id={id}
       className={cn(
-        "relative py-16 sm:py-20 lg:py-section",
+        "relative py-section",
         tone === "sunken" && "bg-ink-sunken border-y border-line-faint",
         className,
       )}
     >
-      <Container className={containerClassName}>{children}</Container>
+      <Container width={width} className={containerClassName}>
+        {children}
+      </Container>
     </section>
   );
 }
@@ -44,27 +64,18 @@ export function SectionHeading({
   className,
 }: HeadingProps) {
   return (
-    <div
-      className={cn(
-        "max-w-2xl",
-        align === "center" && "mx-auto text-center",
-        className,
-      )}
-      data-reveal
-    >
+    <div className={cn(align === "center" && "mx-auto text-center", className)} data-reveal>
       {label ? (
-        <p className="mb-4 flex items-center gap-3 text-small text-mute">
-          <span
-            aria-hidden="true"
-            className="h-px w-8 bg-accent"
-          />
+        <p className="mb-6 flex items-center gap-3 text-small text-mute">
+          <span aria-hidden="true" className="h-px w-8 bg-accent" />
           {label}
         </p>
       ) : null}
-      <Tag className={Tag === "h1" ? "text-display-2 text-bone" : "text-title text-bone"}>
+      {/* Les titres de section prennent le palier display-2 du §2.1. */}
+      <Tag className={cn(Tag === "h1" ? "text-display-1" : "text-display-2", "text-bone")}>
         {title}
       </Tag>
-      {intro ? <div className="mt-5 text-lead text-mist">{intro}</div> : null}
+      {intro ? <p className="mt-6 max-w-read text-lead text-mist">{intro}</p> : null}
     </div>
   );
 }

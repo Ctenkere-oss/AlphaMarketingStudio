@@ -58,6 +58,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr-CA" className={`${spaceGrotesk.variable} ${manrope.variable}`}>
       <body className="min-h-dvh antialiased">
+        {/* Posé avant que le navigateur ne peigne la suite du body : les
+            blocs à révéler peuvent donc partir cachés sans risque. Si
+            React ne monte pas, le minuteur rend tout visible. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');" +
+              "setTimeout(function(){" +
+              "if(!document.documentElement.classList.contains('reveal-ready'))" +
+              "document.documentElement.classList.remove('js');},3000);",
+          }}
+        />
         <JsonLd graph={[organizationSchema(), websiteSchema(), personSchema()]} />
         <SkipLink />
         <Header />

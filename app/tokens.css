@@ -35,56 +35,95 @@
   --color-danger: #ff8b8b;       /* erreurs de formulaire     7.8:1  AAA  */
   --color-ok: #6ee7b7;           /* confirmations            11.4:1  AAA  */
 
-  /* ---------- Typographie ------------------------------------ */
+  /* ---------- Typographie ------------------------------------
+     Échelle unique du site. Un composant ne choisit JAMAIS une taille
+     en dur : il prend un palier de cette liste (§2.1 du brief).
+
+     Affichage : Space Grotesk, graisse maximale 700 — l'axe variable
+     de la police s'arrête là, ce qui a été confirmé avant de figer
+     l'échelle. Interlignage serré, chasse négative.
+     Courant : Manrope, 17 à 22 px, interligne 1.6, mesure 65ch.        */
+
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 
-  /* Échelle fluide. Le second nombre borne la valeur à 1440px. */
-  --text-display-1: clamp(2.5rem, 1.65rem + 3.4vw, 4rem);
-  --text-display-1--line-height: 1.02;
-  --text-display-1--letter-spacing: -0.032em;
+  /* Titre de page. 3rem → 8rem. Sur le titre gelé de l'accueil, cela
+     donne 4 lignes et environ 512 px de haut à 1440 px — vérifié sur
+     les métriques réelles de la police avant d'adopter la borne. */
+  --text-display-1: clamp(3rem, 1.5rem + 6vw, 8rem);
+  --text-display-1--line-height: 0.95;
+  --text-display-1--letter-spacing: -0.04em;
   --text-display-1--font-weight: 700;
 
-  --text-display-2: clamp(2.125rem, 1.45rem + 2.7vw, 3.25rem);
-  --text-display-2--line-height: 1.06;
-  --text-display-2--letter-spacing: -0.028em;
+  /* Titre de section. 2rem → 4.5rem. */
+  --text-display-2: clamp(2rem, 1.1rem + 3.6vw, 4.5rem);
+  --text-display-2--line-height: 1;
+  --text-display-2--letter-spacing: -0.032em;
   --text-display-2--font-weight: 700;
 
-  --text-title: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
-  --text-title--line-height: 1.14;
-  --text-title--letter-spacing: -0.022em;
-  --text-title--font-weight: 700;
+  /* Titre de bloc à l'intérieur d'une section. */
+  --text-display-3: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  --text-display-3--line-height: 1.05;
+  --text-display-3--letter-spacing: -0.024em;
+  --text-display-3--font-weight: 700;
 
-  --text-subtitle: clamp(1.25rem, 1.13rem + 0.5vw, 1.5rem);
-  --text-subtitle--line-height: 1.24;
-  --text-subtitle--letter-spacing: -0.015em;
+  /* Intertitre courant, en Manrope. */
+  --text-title: clamp(1.25rem, 1.12rem + 0.55vw, 1.5rem);
+  --text-title--line-height: 1.25;
+  --text-title--letter-spacing: -0.012em;
+  --text-title--font-weight: 600;
+
+  --text-subtitle: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --text-subtitle--line-height: 1.4;
   --text-subtitle--font-weight: 600;
 
-  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
-  --text-lead--line-height: 1.62;
+  /* Chapô. 18 → 22 px. */
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-lead--line-height: 1.5;
 
-  --text-body: 1rem;
-  --text-body--line-height: 1.68;
+  /* Corps. 17 px, interligne 1.6 — les deux bornes basses du §2.1. */
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
 
-  --text-small: 0.875rem;
+  --text-small: 0.9375rem;
   --text-small--line-height: 1.55;
 
   --text-micro: 0.8125rem;
   --text-micro--line-height: 1.45;
 
-  /* ---------- Espacements nommés ------------------------------ */
-  --spacing-gutter: 1.25rem;     /* marge latérale mobile        */
-  --spacing-shelf: 4rem;         /* respiration entre blocs      */
-  --spacing-section: 6rem;       /* rythme vertical des sections */
+  /* ---------- Espacements ------------------------------------
+     Marge extérieure et rythme vertical, tous deux fluides.       */
 
-  /* ---------- Rayons ----------------------------------------- */
-  --radius-control: 10px;        /* boutons, champs              */
-  --radius-card: 14px;           /* surfaces                     */
-  --radius-frame: 18px;          /* grands panneaux, visuels     */
+  /* Marge latérale : 6vw au-delà du mobile, jamais sous 20 px.
+     §2.2 demande 5 à 8vw sur grand écran. */
+  --spacing-gutter: clamp(1.25rem, 6vw, 8rem);
 
-  /* ---------- Largeurs de lecture ----------------------------- */
-  --container-shell: 76rem;      /* largeur maximale du site     */
-  --container-read: 42rem;       /* colonne de texte longue      */
+  /* Rythme vertical entre sections. 64 px sur téléphone, environ
+     150 px à 1440 px, plafonné à 200 px. §2.2 : 120–200 desktop,
+     64–96 mobile. */
+  --spacing-section: clamp(4rem, 2rem + 8vw, 12.5rem);
+
+  /* Respiration à l'intérieur d'une section. */
+  --spacing-shelf: clamp(2.5rem, 1.5rem + 3vw, 5rem);
+
+  /* Gouttière entre colonnes de la grille. */
+  --spacing-gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+
+  /* ---------- Grille -----------------------------------------
+     Douze colonnes, définies une fois ici. Les composants s'y
+     posent explicitement (§2.2).                                  */
+  --grid-columns: 12;
+
+  /* ---------- Rayons -----------------------------------------
+     §2.4 : panneaux de 24 à 40 px.                                */
+  --radius-control: 12px;        /* boutons, champs                */
+  --radius-card: 24px;           /* cartes                         */
+  --radius-frame: 40px;          /* grands panneaux, visuels       */
+  --radius-pill: 999px;
+
+  /* ---------- Largeurs ---------------------------------------- */
+  --container-shell: 96rem;      /* largeur maximale du site       */
+  --container-read: 65ch;        /* mesure de lecture, §2.1        */
 
   /* ---------- Mouvement --------------------------------------- */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);

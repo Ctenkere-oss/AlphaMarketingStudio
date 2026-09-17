@@ -14,6 +14,10 @@ export function RevealObserver() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Signale au script en ligne que la révélation est prise en charge :
+    // son minuteur de secours n'a plus à démasquer le contenu.
+    document.documentElement.classList.add("reveal-ready");
+
     const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     if (targets.length === 0) return;
 

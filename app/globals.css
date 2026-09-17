@@ -132,6 +132,14 @@
   background-image: linear-gradient(120deg, var(--color-indigo-deep) 0%, var(--color-violet-deep) 100%);
 }
 
+/* Grille de 12 colonnes du §2.2. Définie ici une fois ; les sections
+   s'y posent explicitement avec col-span-* / col-start-*. */
+@utility grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--spacing-gap);
+}
+
 @utility surface {
   background-color: var(--color-ink-raised);
   border: 1px solid var(--color-line);
@@ -184,17 +192,25 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* Révélation au défilement — un seul niveau, piloté par
-   IntersectionObserver, sans bibliothèque. */
+/* Révélation au défilement.
+
+   L'état caché est conditionné à `html.js`, une classe posée par un
+   script en ligne au tout début du body. Sans JavaScript, la classe
+   n'existe pas et le contenu est visible — jamais d'`opacity: 0` que
+   seul le JS pourrait annuler (§2.5 du brief).
+
+   Le même script retire la classe au bout de 3 s si l'observateur ne
+   s'est pas signalé : si React échoue à monter, le contenu réapparaît
+   au lieu de rester invisible. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal] {
+  html.js [data-reveal] {
     opacity: 0;
     transform: translate3d(0, 12px, 0);
     transition:
       opacity 620ms var(--ease-out-soft),
       transform 620ms var(--ease-out-soft);
   }
-  [data-reveal][data-shown="true"] {
+  html.js [data-reveal][data-shown="true"] {
     opacity: 1;
     transform: none;
   }
@@ -207,7 +223,8 @@
 @utility prose-ams {
   color: var(--color-mist);
   font-size: var(--text-lead);
-  line-height: 1.72;
+  line-height: 1.6;
+  max-width: var(--container-read);
 
   & > * + * { margin-top: 1.25em; }
 
