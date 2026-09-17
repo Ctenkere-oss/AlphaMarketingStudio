@@ -4,7 +4,8 @@ import { faqSchema, breadcrumbSchema } from "@/lib/jsonld";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { faqs } from "@/content/faq";
 import { Hero } from "@/components/sections/Hero";
-import { CredibilityBand } from "@/components/sections/CredibilityBand";
+import { TestBoard } from "@/components/sections/TestBoard";
+import { Marquee } from "@/components/sections/Marquee";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { WebOffer } from "@/components/sections/WebOffer";
@@ -13,7 +14,6 @@ import { CaseStudySection } from "@/components/sections/CaseStudySection";
 import { AboutShort } from "@/components/sections/AboutShort";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { GuideSection } from "@/components/sections/GuideSection";
-import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata: Metadata = buildMetadata({
   title: "Publicités Meta pour PME à Montréal | Alpha Marketing",
@@ -34,7 +34,10 @@ export default function HomePage() {
         ]}
       />
       <Hero />
-      <CredibilityBand />
+      {/* Le tableau de test quitte le héros : la scène WebGL du §2.6 y
+          prendra place en Phase 5. Validé avant déplacement. */}
+      <TestBoard />
+      <Marquee />
       <ProblemSection />
       <ServicesSection />
       <MethodSection />
@@ -46,7 +49,6 @@ export default function HomePage() {
       <AboutShort />
       <FaqSection />
       <GuideSection />
-      <FinalCta />
     </>
   );
 }

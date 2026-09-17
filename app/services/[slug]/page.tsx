@@ -7,7 +7,6 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { services, servicesBySlug } from "@/content/services";
 import { site } from "@/content/site";
 import { slugify } from "@/lib/slug";
@@ -149,8 +148,6 @@ export default async function ServiceChildPage({ params }: Props) {
           </nav>
         </aside>
       </Container>
-
-      <FinalCta />
     </>
   );
 }

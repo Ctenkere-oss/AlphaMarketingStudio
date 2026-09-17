@@ -98,10 +98,18 @@
      §2.2 demande 5 à 8vw sur grand écran. */
   --spacing-gutter: clamp(1.25rem, 6vw, 8rem);
 
-  /* Rythme vertical entre sections. 64 px sur téléphone, environ
-     150 px à 1440 px, plafonné à 200 px. §2.2 : 120–200 desktop,
-     64–96 mobile. */
-  --spacing-section: clamp(4rem, 2rem + 8vw, 12.5rem);
+  /* Rembourrage vertical d'UNE section.
+
+     Deux sections voisines additionnent leur rembourrage : c'est la
+     somme qui doit tomber dans la fourchette du §2.2 (120–200 px sur
+     grand écran, 64–96 sur téléphone), donc chaque section en porte la
+     moitié.
+
+       390 px  → 32 par côté, soit 63 d'écart
+      1440 px  → 74 par côté, soit 147 d'écart
+      1920 px  → 93 par côté, soit 185 d'écart
+       plafond → 100 par côté, soit 200 d'écart                      */
+  --spacing-section: clamp(2rem, 1rem + 4vw, 6.25rem);
 
   /* Respiration à l'intérieur d'une section. */
   --spacing-shelf: clamp(2.5rem, 1.5rem + 3vw, 5rem);

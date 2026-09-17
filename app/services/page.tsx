@@ -7,7 +7,6 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { ServiceBlock } from "@/components/sections/ServiceBlock";
 import { WebOffer } from "@/components/sections/WebOffer";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { mainService, services, servicesPage, supportServices } from "@/content/services";
 import { site } from "@/content/site";
 
@@ -86,7 +85,6 @@ export default function ServicesPage() {
       </Section>
 
       <WebOffer />
-      <FinalCta />
     </>
   );
 }

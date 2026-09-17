@@ -2,6 +2,8 @@ import { cn } from "@/lib/cn";
 
 type Props = {
   as?: "div" | "section" | "header" | "footer" | "nav" | "main";
+  /** Ancre de section, pour les liens internes. */
+  id?: string;
   /**
    * `shell` : largeur maximale du site.
    * `read`  : colonne de lecture, bornée à la mesure du §2.1 (~65ch).
@@ -20,9 +22,10 @@ type Props = {
  * fluide couvre du téléphone au grand écran, sans point de rupture.
  * C'est la marge large demandée au §2.2.
  */
-export function Container({ as: Tag = "div", width = "shell", className, children }: Props) {
+export function Container({ as: Tag = "div", id, width = "shell", className, children }: Props) {
   return (
     <Tag
+      id={id}
       className={cn(
         "mx-auto w-full",
         width !== "bleed" && "px-gutter",

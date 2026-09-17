@@ -1,36 +1,46 @@
-import { Section, SectionHeading } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/Section";
 import { problem } from "@/content/home";
 
 /**
- * Trois phrases entendues, pas trois « pain points ». Le guillemet
- * fait le travail que ferait une icône, sans ajouter de pictogramme.
+ * Trois phrases entendues.
+ *
+ * Chaque bloc démarre à une colonne différente : le décalage suit la
+ * lecture au lieu d'aligner trois rectangles (§2.2). La citation prend
+ * le palier display-3, le diagnostic reste en corps sur une mesure de
+ * lecture.
  */
+const decalages = [
+  "lg:col-start-1 lg:col-span-9",
+  "lg:col-start-3 lg:col-span-9",
+  "lg:col-start-2 lg:col-span-9",
+];
+
 export function ProblemSection() {
   return (
-    <Section id="probleme">
+    <Container as="section" id="probleme" className="py-section">
       <SectionHeading title={problem.title} intro={problem.intro} />
 
-      <ol className="mt-14 space-y-12 lg:space-y-14">
+      <ol className="mt-shelf grid-12 gap-y-shelf">
         {problem.items.map((item, i) => (
-          <li
-            key={item.quote}
-            data-reveal
-            data-reveal-delay={i * 90}
-            className="grid gap-5 border-t border-line pt-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14"
-          >
-            <blockquote className="font-display text-[clamp(1.35rem,1.05rem+1.1vw,1.9rem)] leading-[1.2] font-bold tracking-tight text-bone">
-              <span aria-hidden="true" className="text-gradient">
-                «&nbsp;
-              </span>
-              {item.quote}
-              <span aria-hidden="true" className="text-gradient">
-                &nbsp;»
-              </span>
-            </blockquote>
-            <p className="max-w-[62ch] text-mist">{item.diagnosis}</p>
+          <li key={item.quote} data-reveal className={`col-span-12 ${decalages[i]}`}>
+            <div className="grid-12 items-start border-t border-line pt-8">
+              <blockquote className="col-span-12 font-display text-display-3 text-bone lg:col-span-5">
+                <span aria-hidden="true" className="text-gradient">
+                  «&nbsp;
+                </span>
+                {item.quote}
+                <span aria-hidden="true" className="text-gradient">
+                  &nbsp;»
+                </span>
+              </blockquote>
+              <p className="col-span-12 mt-6 max-w-read text-mist lg:col-span-6 lg:col-start-7 lg:mt-0">
+                {item.diagnosis}
+              </p>
+            </div>
           </li>
         ))}
       </ol>
-    </Section>
+    </Container>
   );
 }

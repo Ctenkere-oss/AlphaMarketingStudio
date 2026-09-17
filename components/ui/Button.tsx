@@ -6,6 +6,7 @@ type Size = "md" | "lg";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-control font-sans font-semibold " +
+  "text-center whitespace-nowrap " +
   "transition-[background-color,border-color,color,box-shadow] duration-200 " +
   "disabled:cursor-not-allowed disabled:opacity-55";
 
