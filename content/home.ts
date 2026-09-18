@@ -4,7 +4,7 @@ export const hero = {
   h1: "Des clients qui vous trouvent avant de trouver votre concurrent.",
   lead:
     "Je gère des campagnes de publicité Meta pour les PME du Grand Montréal — c'est le cœur du métier. Sites web et réseaux sociaux viennent en appui, quand ils rendent la publicité moins chère.",
-  ctaPrimary: { href: "/contact", label: "Obtenir mon audit gratuit" },
+  ctaPrimary: { href: "/reservation", label: "Prendre un rendez-vous" },
   ctaSecondary: { href: "/services", label: "Voir les services" },
   guideLink: { href: "#guide", label: "Ou commencez par le guide gratuit" },
   assurances: [

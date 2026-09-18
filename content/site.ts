@@ -70,11 +70,23 @@ export const site = {
   },
   responseTime: "48 h",
 
+  /**
+   * Réseaux sociaux. L'ordre ici est celui des icônes affichées.
+   * Un lien dont l'`url` est vide n'apparaît nulle part sur le site.
+   */
   social: {
     instagram: {
       label: "Instagram",
       handle: "@alphamarketingstudio",
       url: "https://www.instagram.com/alphamarketingstudio/",
+    },
+    facebook: {
+      label: "Facebook",
+      handle: "Alpha Marketing Studio",
+      // URL canonique du profil. Les paramètres de suivi qui suivaient
+      // l'identifiant ont été retirés : ils n'ajoutent rien et exposent
+      // le chemin de navigation d'où le lien a été copié.
+      url: "https://www.facebook.com/profile.php?id=61581637425216",
     },
     /** TikTok : mettre l'identifiant exact. Le lien reste masqué tant qu'il est vide. */
     tiktok: {

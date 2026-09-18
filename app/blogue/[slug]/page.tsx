@@ -110,8 +110,8 @@ export default async function ArticlePage({ params }: Props) {
               L&apos;audit est gratuit et le document vous appartient, même si on ne travaille pas
               ensemble ensuite.
             </p>
-            <ButtonLink href="/contact" size="lg" className="mt-5">
-              Obtenir mon audit gratuit
+            <ButtonLink href="/reservation" size="lg" className="mt-5">
+              Prendre un rendez-vous
             </ButtonLink>
           </div>
         </div>

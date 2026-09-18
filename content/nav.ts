@@ -35,4 +35,4 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
   },
 ];
 
-export const primaryCta = { href: "/contact", label: "Obtenir mon audit gratuit" };
+export const primaryCta = { href: "/reservation", label: "Prendre un rendez-vous" };

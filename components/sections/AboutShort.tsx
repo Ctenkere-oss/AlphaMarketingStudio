@@ -15,8 +15,8 @@ export function AboutShort() {
   return (
     <Container as="section" id="a-propos" className="py-section">
       <div className="grid-12 items-center gap-y-shelf">
-        <div data-reveal className="col-span-12 sm:col-span-8 lg:col-span-5">
-          <div className="relative">
+        <div className="col-span-12 sm:col-span-8 lg:col-span-5">
+          <div data-parallax className="relative">
             <span
               aria-hidden="true"
               className="absolute -inset-3 -z-10 rounded-frame bg-accent opacity-20"
@@ -27,6 +27,7 @@ export function AboutShort() {
               width={960}
               height={1200}
               sizes="(min-width: 1024px) 460px, 80vw"
+              data-media
               className="w-full rounded-frame border border-line object-cover"
             />
           </div>

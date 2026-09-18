@@ -6,10 +6,11 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { ButtonLink, TextLink } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/Button";
 import { Marked } from "@/components/ui/Marked";
 import { about } from "@/content/about";
-import { site, socialLinks } from "@/content/site";
+import { site } from "@/content/site";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = buildMetadata({
   title: about.metaTitle,
@@ -48,17 +49,7 @@ export default function AboutPage() {
               <p className="mt-8 font-display text-subtitle text-bone">{site.founder.name}</p>
               <p className="text-small text-mute">{site.founder.title}</p>
 
-              {socialLinks.length ? (
-                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-                  {socialLinks.map((social) => (
-                    <li key={social.label}>
-                      <TextLink href={social.url} standalone className="text-small">
-                        {social.label} {social.handle}
-                      </TextLink>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+              <SocialLinks className="mt-6" />
             </div>
 
             {/* La photo est traitée comme un élément de mise en page,
@@ -126,8 +117,8 @@ export default function AboutPage() {
           <h2 className="text-title text-bone">{about.cta.heading}</h2>
           <p className="mt-4 text-lead text-mist">{about.cta.body}</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/contact" size="lg">
-              Obtenir mon audit gratuit
+            <ButtonLink href="/reservation" size="lg">
+              Prendre un rendez-vous
             </ButtonLink>
             <ButtonLink href={`mailto:${site.email}`} size="lg" variant="secondary">
               M&apos;écrire directement

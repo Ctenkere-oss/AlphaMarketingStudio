@@ -103,8 +103,8 @@ export default async function ServiceChildPage({ params }: Props) {
 
           <div className="mt-12 rounded-frame border border-line bg-ink-raised p-6 sm:p-8">
             <p className="max-w-xl text-lead text-bone">{service.closing}</p>
-            <ButtonLink href="/contact" size="lg" className="mt-6">
-              Obtenir mon audit gratuit
+            <ButtonLink href="/reservation" size="lg" className="mt-6">
+              Prendre un rendez-vous
             </ButtonLink>
           </div>
         </div>

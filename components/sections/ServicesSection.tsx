@@ -123,6 +123,7 @@ export function ServicesSection() {
           >
             <Link
               href={`/services/${service.slug}`}
+              data-cursor="Voir"
               className="group flex h-full flex-col justify-between rounded-card border border-line
                          bg-ink-raised p-8"
             >

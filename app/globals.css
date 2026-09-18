@@ -192,28 +192,107 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* Révélation au défilement.
+/* Révélation au défilement, curseur et transitions.
 
-   L'état caché est conditionné à `html.js`, une classe posée par un
-   script en ligne au tout début du body. Sans JavaScript, la classe
-   n'existe pas et le contenu est visible — jamais d'`opacity: 0` que
-   seul le JS pourrait annuler (§2.5 du brief).
+   Aucun état caché n'est écrit ici. C'est GSAP qui masque, depuis le
+   JavaScript, dans un effet exécuté avant le premier affichage. Si le
+   moteur d'animation ne démarre pas — script bloqué, erreur, mouvement
+   réduit — rien n'est masqué et la page reste entièrement lisible.
+   C'est l'exigence du §2.5 du brief. */
 
-   Le même script retire la classe au bout de 3 s si l'observateur ne
-   s'est pas signalé : si React échoue à monter, le contenu réapparaît
-   au lieu de rester invisible. */
-@media (prefers-reduced-motion: no-preference) {
-  html.js [data-reveal] {
-    opacity: 0;
-    transform: translate3d(0, 12px, 0);
-    transition:
-      opacity 620ms var(--ease-out-soft),
-      transform 620ms var(--ease-out-soft);
-  }
-  html.js [data-reveal][data-shown="true"] {
-    opacity: 1;
-    transform: none;
-  }
+/* Masque d'une ligne de titre : la ligne monte depuis le bas. */
+.ligne-masque {
+  display: block;
+  overflow: hidden;
+}
+.ligne-masque > .ligne {
+  display: block;
+  will-change: transform;
+}
+
+/* ---- Masquage avant révélation ----
+   Posé par le script synchrone du <head>, donc effectif dès la première
+   image peinte. La classe disparaît dès que GSAP a inscrit son propre
+   masquage en style inline — lequel prime sur cette règle — ou au bout
+   de 3 s si le moteur n'est jamais arrivé. Sans JavaScript, la classe
+   n'existe pas et rien n'est masqué. */
+html.mouvement-arme [data-reveal],
+html.mouvement-arme [data-media],
+html.mouvement-arme [data-split] {
+  opacity: 0;
+}
+
+/* ---- Curseur personnalisé (pointeur fin uniquement) ---- */
+
+/* Le nœud est toujours dans le document ; c'est la classe posée par le
+   composant sur <html> qui l'allume. Sur tactile ou sous mouvement
+   réduit, elle n'arrive jamais et le disque reste invisible. */
+.curseur {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--color-bone);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* L'étiquette ne grandit pas avec le disque : elle reste lisible. */
+.curseur::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  mix-blend-mode: normal;
+  white-space: nowrap;
+}
+
+html.curseur-perso .curseur {
+  display: block;
+}
+
+html.curseur-perso,
+html.curseur-perso body {
+  cursor: none;
+}
+
+/* Jamais dans un champ de saisie : on y rend la main au curseur natif. */
+html.curseur-perso input,
+html.curseur-perso textarea,
+html.curseur-perso select,
+html.curseur-perso [contenteditable] {
+  cursor: auto;
+}
+
+/* ---- Voile de transition entre pages ---- */
+.voile-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  background: linear-gradient(120deg, var(--color-indigo-deep), var(--color-violet-deep));
+}
+.voile-transition[data-balaie="true"] {
+  animation: voile-balaie 380ms var(--ease-out-soft) both;
+}
+
+@keyframes voile-balaie {
+  0% { transform: scaleY(0); transform-origin: bottom; }
+  45% { transform: scaleY(1); transform-origin: bottom; }
+  55% { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: top; }
 }
 
 /* ============================================================

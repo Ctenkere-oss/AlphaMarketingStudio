@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { footerNav } from "@/content/nav";
 import { finalCta } from "@/content/home";
-import { site, socialLinks } from "@/content/site";
+import { site } from "@/content/site";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink, TextLink } from "@/components/ui/Button";
 import { NewsletterForm } from "@/components/ui/NewsletterForm";
@@ -121,22 +122,7 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col gap-3 md:items-end">
-            {socialLinks.length ? (
-              <ul className="flex flex-wrap gap-x-6">
-                {socialLinks.map((social) => (
-                  <li key={social.label}>
-                    <a
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-11 items-center text-mist transition-colors hover:text-bone"
-                    >
-                      {social.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+            <SocialLinks className="md:justify-end" />
             <p>
               © {year} {site.legalName}. Tous droits réservés.
             </p>

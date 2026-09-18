@@ -15,7 +15,7 @@ import { method } from "@/content/home";
  */
 export function MethodSection() {
   return (
-    <Container as="section" id="methode" className="py-section">
+    <Container as="section" id="methode" data-pin className="py-section">
       <div className="grid-12">
         <SectionHeading
           title={method.title}
@@ -28,7 +28,7 @@ export function MethodSection() {
         {method.steps.map((step, i) => (
           <li
             key={step.name}
-            data-reveal
+            data-pin-step
             className="col-span-12 border-t border-line pt-8 md:col-span-6 lg:col-span-3"
           >
             <div className="flex items-baseline justify-between gap-4">

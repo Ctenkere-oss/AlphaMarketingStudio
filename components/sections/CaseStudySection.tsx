@@ -45,6 +45,7 @@ export function CaseStudySection() {
                   width={462}
                   height={616}
                   sizes="(min-width: 1024px) 300px, 45vw"
+                  data-media
                   className="w-full max-w-[300px] rounded-card border border-line object-cover"
                 />
               ))}

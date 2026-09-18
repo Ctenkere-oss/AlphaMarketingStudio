@@ -64,18 +64,28 @@ export function SectionHeading({
   className,
 }: HeadingProps) {
   return (
-    <div className={cn(align === "center" && "mx-auto text-center", className)} data-reveal>
+    <div className={cn(align === "center" && "mx-auto text-center", className)}>
       {label ? (
-        <p className="mb-6 flex items-center gap-3 text-small text-mute">
+        <p data-reveal className="mb-6 flex items-center gap-3 text-small text-mute">
           <span aria-hidden="true" className="h-px w-8 bg-accent" />
           {label}
         </p>
       ) : null}
       {/* Les titres de section prennent le palier display-2 du §2.1. */}
-      <Tag className={cn(Tag === "h1" ? "text-display-1" : "text-display-2", "text-bone")}>
+      {/* `data-split` révèle le titre ligne à ligne. Jamais sur un h1
+          de héros : c'est l'élément LCP, il doit être peint tout de
+          suite (§4). */}
+      <Tag
+        data-split={Tag === "h2" ? "" : undefined}
+        className={cn(Tag === "h1" ? "text-display-1" : "text-display-2", "text-bone")}
+      >
         {title}
       </Tag>
-      {intro ? <p className="mt-6 max-w-read text-lead text-mist">{intro}</p> : null}
+      {intro ? (
+        <p data-reveal className="mt-6 max-w-read text-lead text-mist">
+          {intro}
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -6,7 +6,9 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { RevealObserver } from "@/components/ui/Reveal";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { Cursor } from "@/components/motion/Cursor";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
@@ -54,22 +56,47 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+/**
+ * Armement du masquage, avant le premier affichage.
+ *
+ * Les blocs à révéler doivent être masqués AVANT que le navigateur ne
+ * peigne le corps de la page, sinon le contenu apparaît puis disparaît
+ * — mesuré jusqu'à 1,5 s de scintillement sur 4G lente, parce qu'un
+ * effet React ne s'exécute qu'à l'hydratation, donc après le premier
+ * affichage.
+ *
+ * Ce script-ci est synchrone et placé avant le corps : il pose la
+ * classe pendant l'analyse du document, et la règle CSS
+ * `.mouvement-arme [data-reveal]` masque dès la première image.
+ *
+ * Trois garde-fous, parce que du contenu masqué qui ne réapparaît pas
+ * est une panne bien pire qu'une absence d'animation :
+ *
+ *   1. sans JavaScript, la classe n'est jamais posée — rien n'est masqué ;
+ *   2. sous `prefers-reduced-motion`, elle n'est pas posée non plus ;
+ *   3. si le moteur n'a pas pris le relais au bout de 1,6 s, le minuteur
+ *      retire la classe et tout redevient visible. Le moteur mesuré met
+ *      entre 40 et 530 ms selon l'appareil ; s'il arrive quand même
+ *      après le minuteur, il constate le désarmement et renonce à
+ *      masquer plutôt que de faire disparaître du texte déjà lu.
+ *
+ * Le moteur retire lui-même la classe une fois qu'il a inscrit son
+ * propre masquage en style inline — qui, lui, prime sur la règle CSS.
+ */
+const armerMouvement = `(function(){try{
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var h=document.documentElement;h.classList.add('mouvement-arme');
+window.__desarmerMouvement=function(){h.classList.remove('mouvement-arme')};
+setTimeout(window.__desarmerMouvement,1600);
+}catch(e){}})()`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr-CA" className={`${spaceGrotesk.variable} ${manrope.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: armerMouvement }} />
+      </head>
       <body className="min-h-dvh antialiased">
-        {/* Posé avant que le navigateur ne peigne la suite du body : les
-            blocs à révéler peuvent donc partir cachés sans risque. Si
-            React ne monte pas, le minuteur rend tout visible. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "document.documentElement.classList.add('js');" +
-              "setTimeout(function(){" +
-              "if(!document.documentElement.classList.contains('reveal-ready'))" +
-              "document.documentElement.classList.remove('js');},3000);",
-          }}
-        />
         <JsonLd graph={[organizationSchema(), websiteSchema(), personSchema()]} />
         <SkipLink />
         <Header />
@@ -77,7 +104,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <RevealObserver />
+        <MotionProvider />
+        <Cursor />
+        <PageTransition />
         <ConsentBanner />
         <Analytics />
       </body>

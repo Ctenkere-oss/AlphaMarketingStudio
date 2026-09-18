@@ -18,6 +18,7 @@ export function Marquee() {
   return (
     <section
       aria-label={credibility.sectorsLabel}
+      data-cursor="Glisser"
       className="overflow-hidden border-y border-line bg-ink-sunken py-shelf"
     >
       {/* Une seule ligne, débordement masqué : la Phase 4 n'aura qu'à

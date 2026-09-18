@@ -6,7 +6,8 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink, TextLink } from "@/components/ui/Button";
 import { ContactForm } from "@/components/ContactForm";
-import { site, socialLinks } from "@/content/site";
+import { site } from "@/content/site";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact — demandez votre audit gratuit, Montréal QC",
@@ -117,20 +118,10 @@ export default function ContactPage() {
               </div>
             </dl>
 
-            {socialLinks.length ? (
-              <div className="mt-6 border-t border-line pt-5">
-                <p className="text-micro text-mute">Sur les réseaux</p>
-                <ul className="mt-2.5 space-y-1.5">
-                  {socialLinks.map((social) => (
-                    <li key={social.label}>
-                      <TextLink href={social.url} standalone className="text-small">
-                        {social.label} {social.handle}
-                      </TextLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+            <div className="mt-6 border-t border-line pt-5">
+              <p className="text-micro text-mute">Sur les réseaux</p>
+              <SocialLinks className="mt-3" />
+            </div>
           </div>
 
           <p className="mt-5 text-micro text-mute">
